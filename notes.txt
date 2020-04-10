@@ -1,0 +1,6 @@
+react router: https://guide.meteor.com/react.html#using-react-router
+dotenv meteor:
+https://www.npmjs.com/package/dotenv
+https://github.com/motdotla/dotenv/issues/227
+
+https://www.meteor.com/tutorials/react/components
