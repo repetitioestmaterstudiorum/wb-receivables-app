@@ -1,6 +1,13 @@
-react router: https://guide.meteor.com/react.html#using-react-router
+little helpers in this project:
+- used
 dotenv meteor:
 https://www.npmjs.com/package/dotenv
 https://github.com/motdotla/dotenv/issues/227
+
+RmA API resources:
+https://www.runmyaccounts.ch/support-artikel/api-resource-list-of-invoices/
+
+- maybe to be used
+react router: https://guide.meteor.com/react.html#using-react-router
 
 https://www.meteor.com/tutorials/react/components
