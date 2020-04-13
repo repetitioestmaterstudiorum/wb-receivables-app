@@ -1,0 +1,12 @@
+// example customization for bootstrap defaults
+$theme-colors: (
+  "info": tomato,
+  "danger": teal,
+);
+
+@import "{}/node_modules/bootstrap/scss/bootstrap.scss";
+
+body {
+  padding: 10px;
+  font-family: sans-serif;
+}
