@@ -13,5 +13,5 @@ https://react-bootstrap.github.io/getting-started/introduction
 https://techsolutionshere.com/bootstrap-4-in-meteor-js/ (but with "{}/node_modules..")
 
 - react router: 
-https://guide.meteor.com/react.html#using-react-router
+https://guide.meteor.com/react.html#using-react-router but with react-router-dom in all FE components...
 

@@ -1,9 +1,10 @@
 import React from "react";
-import { Router, Route, Switch } from "react-router";
+import { Router, Route, Switch } from "react-router-dom";
 import { createBrowserHistory } from "history";
 /* outdated meteor docs: use `require("history").createBrowserHistory` instead of `require("history/createBrowserHistory")` */
 
 // route components
+import Header from "./Header";
 import Landing from "../pages/Landing";
 import Splitview from "../pages/Splitview";
 import Todays from "../pages/Todays";
@@ -15,6 +16,7 @@ const browserHistory = createBrowserHistory();
 const Routes = () => {
   return (
     <Router history={browserHistory}>
+      <Header />
       <Switch>
         <Route exact path="/" component={Landing} />
         <Route exact path="/splitview" component={Splitview} />
