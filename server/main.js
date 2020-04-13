@@ -18,7 +18,7 @@ const insertInvoices = () => {
 
 Meteor.startup(() => {
   // console.log("fetchInvoices()", fetchInvoices());
-  fetchInvoices().then((result) => console.log(result.data));
+  // fetchInvoices().then((result) => console.log(result.data));
   // If the Links collection is empty, add some data.
   if (LinksCollection.find().count() === 0) {
     insertLink({

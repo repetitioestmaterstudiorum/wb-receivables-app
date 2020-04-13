@@ -6,6 +6,6 @@ export async function fetchInvoices() {
     const result = await axios.get(url);
     return result;
   } catch (err) {
-    console.log(err);
+    return err;
   }
 }
