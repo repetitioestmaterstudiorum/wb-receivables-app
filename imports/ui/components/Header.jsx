@@ -13,7 +13,13 @@ const Header = () => {
         className="mb-3"
       >
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav" className="mt-2 mt-sm-0">
+        <Link to="/">
+          <img src="logo.png" alt="wB" style={{ maxWidth: "40px" }} />
+        </Link>
+        <Navbar.Collapse
+          id="responsive-navbar-nav"
+          className="mt-2 mt-sm-0 ml-0 ml-sm-1"
+        >
           <Nav className="mr-auto">
             <Link to="/splitview" className="nav-link">
               Splitview
