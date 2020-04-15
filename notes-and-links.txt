@@ -11,6 +11,7 @@ https://stackoverflow.com/questions/44703424/meteor-mongo-what-is-fetch
 - Bootstrap & Meteor
 https://react-bootstrap.github.io/getting-started/introduction
 https://techsolutionshere.com/bootstrap-4-in-meteor-js/ (but with "{}/node_modules..")
+https://react-bootstrap.github.io/components/navbar/
 
 - react router: 
 https://guide.meteor.com/react.html#using-react-router but with react-router-dom in all FE components...
@@ -22,3 +23,6 @@ https://forums.meteor.com/t/getting-request-body-undefined-in-post-requests/4272
 - Sendgrid's Inbound Parse Webhook
 https://sendgrid.com/docs/for-developers/parsing-email/setting-up-the-inbound-parse-webhook/
 (will I need https://www.npmjs.com/package/@sendgrid/inbound-mail-parser ?)
+
+- next? react, react router v4 and authentication
+https://forums.meteor.com/t/react-react-router-v4-meteor-1-5-authentication-example-app/39602

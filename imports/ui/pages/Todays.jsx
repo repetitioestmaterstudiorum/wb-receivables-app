@@ -1,7 +1,12 @@
 import React from "react";
+import { Container } from "react-bootstrap";
 
 const Todays = () => {
-  return <div>Todays</div>;
+  return (
+    <Container>
+      <div>Todays</div>
+    </Container>
+  );
 };
 
 export default Todays;
