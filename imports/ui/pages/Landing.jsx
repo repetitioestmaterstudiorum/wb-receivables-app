@@ -7,13 +7,18 @@ const Landing = () => {
   return (
     <Container>
       <Row>
-        <Counter />
-        <Links />
+        <Col>
+          <Counter />
+        </Col>
+        <Col>
+          <Links />
+        </Col>
       </Row>
-      <Row>Landing</Row>
+      <Row>
+        <Col>Landing</Col>
+      </Row>
       <Row>
         <Col>Login</Col>
-        <Col>Registrierung</Col>
       </Row>
     </Container>
   );
