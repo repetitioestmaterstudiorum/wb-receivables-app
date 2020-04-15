@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Accordion, Card } from "react-bootstrap";
 import Counter from "../components/Counter";
 import Links from "../components/Links";
 
@@ -8,18 +8,34 @@ const Landing = () => {
     <Container>
       <Row>
         <Col>
-          <Counter />
+          <h1>Landing</h1>
         </Col>
+      </Row>
+      <Row>
         <Col>
-          <Links />
+          <form>Login</form>
         </Col>
       </Row>
-      <Row>
-        <Col>Landing</Col>
-      </Row>
-      <Row>
-        <Col>Login</Col>
-      </Row>
+      <br />
+      <Accordion>
+        <Card>
+          <Accordion.Toggle as={Card.Header} eventKey="0">
+            Sample Content
+          </Accordion.Toggle>
+          <Accordion.Collapse eventKey="0">
+            <Card.Body>
+              <Row>
+                <Col>
+                  <Counter />
+                </Col>
+                <Col>
+                  <Links />
+                </Col>
+              </Row>
+            </Card.Body>
+          </Accordion.Collapse>
+        </Card>
+      </Accordion>
     </Container>
   );
 };

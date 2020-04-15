@@ -9,7 +9,11 @@ const Counter = () => {
 
   return (
     <div>
-      <button onClick={increment}>Click Me</button>
+      <button className="btn btn-primary" onClick={increment}>
+        Click Me
+      </button>
+      <br />
+      <br />
       <p>You've pressed the button {counter} times.</p>
     </div>
   );
