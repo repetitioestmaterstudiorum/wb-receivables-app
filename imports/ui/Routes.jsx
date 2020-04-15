@@ -4,12 +4,12 @@ import { createBrowserHistory } from "history";
 /* outdated meteor docs: use `require("history").createBrowserHistory` instead of `require("history/createBrowserHistory")` */
 
 // route components
-import Header from "./Header";
-import Landing from "../pages/Landing";
-import Splitview from "../pages/Splitview";
-import Todays from "../pages/Todays";
-import Consolidated from "../pages/Consolidated";
-import FourOFour from "../pages/FourOFour";
+import Header from "./components/Header";
+import Landing from "./pages/Landing";
+import Splitview from "./pages/Splitview";
+import Todays from "./pages/Todays";
+import Consolidated from "./pages/Consolidated";
+import FourOFour from "./pages/FourOFour";
 
 const browserHistory = createBrowserHistory();
 

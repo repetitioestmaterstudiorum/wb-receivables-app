@@ -15,3 +15,10 @@ https://techsolutionshere.com/bootstrap-4-in-meteor-js/ (but with "{}/node_modul
 - react router: 
 https://guide.meteor.com/react.html#using-react-router but with react-router-dom in all FE components...
 
+- WebApp (Meteor) POST API endpoint:
+https://docs.meteor.com/packages/webapp.html
+https://forums.meteor.com/t/getting-request-body-undefined-in-post-requests/42722
+
+- Sendgrid's Inbound Parse Webhook
+https://sendgrid.com/docs/for-developers/parsing-email/setting-up-the-inbound-parse-webhook/
+(will I need https://www.npmjs.com/package/@sendgrid/inbound-mail-parser ?)
