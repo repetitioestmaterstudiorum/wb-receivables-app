@@ -1,7 +1,6 @@
 import React from "react";
 import { Container, Row, Col, Accordion, Card } from "react-bootstrap";
 import Counter from "../components/Counter";
-import Links from "../components/Links";
 
 const Landing = () => {
   return (
@@ -24,14 +23,7 @@ const Landing = () => {
           </Accordion.Toggle>
           <Accordion.Collapse eventKey="0">
             <Card.Body>
-              <Row>
-                <Col>
-                  <Counter />
-                </Col>
-                <Col>
-                  <Links />
-                </Col>
-              </Row>
+              <Counter />
             </Card.Body>
           </Accordion.Collapse>
         </Card>
