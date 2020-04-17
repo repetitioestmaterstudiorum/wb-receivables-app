@@ -1,3 +1,3 @@
 import { Mongo } from "meteor/mongo";
 
-export const Invoices = new Mongo.Collection("invoices");
+export const InvoiceCollection = new Mongo.Collection("invoices");

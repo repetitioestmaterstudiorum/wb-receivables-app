@@ -1,8 +1,7 @@
 import { Meteor } from "meteor/meteor";
 import bodyParser from "body-parser";
 import moment from "moment-timezone";
-import { LinksCollection } from "/imports/api/links";
-import { Invoices } from "/imports/api/invoices";
+import { InvoiceCollection } from "/imports/api/invoices";
 import { fetchInvoices } from "/imports/server/fetchInvoices";
 
 import dotenv from "dotenv";
@@ -10,16 +9,34 @@ dotenv.config({
   path: Assets.absoluteFilePath(".env"),
 });
 
-const insertLink = ({ title, url }) => {
-  LinksCollection.insert({ title, url, createdAt: new Date() });
-};
-
-// current date (taking the time zone into account)
-const todaysDate = moment().tz(process.env.TIME_ZONE).format("DD.MM.YYYY");
-console.log("todaysDate", todaysDate);
-
-const insertInvoices = () => {
-  // Invoices.insert({});
+const insertInvoices = (invoicesObject) => {
+  invoicesObject.forEach((invoice) => {
+    const { name, customernumber } = invoice.customer;
+    const {
+      id,
+      transdate,
+      duedate,
+      invnumber,
+      description,
+      status,
+      currency,
+      amount,
+      paid,
+    } = invoice;
+    InvoiceCollection.insert({
+      id,
+      transdate,
+      duedate,
+      invnumber,
+      description,
+      name,
+      customernumber,
+      status,
+      currency,
+      amount,
+      paid,
+    });
+  });
 };
 
 // For requests with content-type JSON:
@@ -37,28 +54,13 @@ WebApp.connectHandlers.use("/email", (req, res) => {
 });
 
 Meteor.startup(() => {
-  // console.log("fetchInvoices()", fetchInvoices());
-  // fetchInvoices().then((result) => console.log(result.data));
-  // If the Links collection is empty, add some data.
-  if (LinksCollection.find().count() === 0) {
-    insertLink({
-      title: "Do the Tutorial",
-      url: "https://www.meteor.com/tutorials/react/creating-an-app",
-    });
+  // current date (taking the time zone into account)
+  const todaysDate = moment().tz(process.env.TIME_ZONE).format("DD.MM.YYYY");
+  console.log("todaysDate: ", todaysDate);
 
-    insertLink({
-      title: "Follow the Guide",
-      url: "http://guide.meteor.com",
-    });
+  // create index for the id field in the collection "invoices"
+  InvoiceCollection.rawCollection().createIndex({ id: 1 }, { unique: true });
 
-    insertLink({
-      title: "Read the Docs",
-      url: "https://docs.meteor.com",
-    });
-
-    insertLink({
-      title: "Discussions",
-      url: "https://forums.meteor.com",
-    });
-  }
+  // fetch invoices and update the "invoices" collection
+  fetchInvoices().then((result) => insertInvoices(result.data.invoice));
 });
