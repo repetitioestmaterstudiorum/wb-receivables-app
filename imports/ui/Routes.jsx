@@ -7,7 +7,6 @@ import { createBrowserHistory } from "history";
 import Header from "./components/Header";
 import Landing from "./pages/Landing";
 import Splitview from "./pages/Splitview";
-import Todays from "./pages/Todays";
 import Consolidated from "./pages/Consolidated";
 import FourOFour from "./pages/FourOFour";
 
@@ -20,7 +19,6 @@ const Routes = () => {
       <Switch>
         <Route exact path="/" component={Landing} />
         <Route exact path="/splitview" component={Splitview} />
-        <Route exact path="/todays" component={Todays} />
         <Route exact path="/consolidated" component={Consolidated} />
         <Route component={FourOFour} />
       </Switch>
