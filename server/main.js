@@ -1,43 +1,14 @@
 import { Meteor } from "meteor/meteor";
 import bodyParser from "body-parser";
-import moment from "moment-timezone";
 import { InvoiceCollection } from "/imports/api/invoices";
-import { fetchInvoices } from "/imports/server/fetchInvoices";
-
+import {
+  fetchInvoices,
+  insertInvoices,
+} from "/imports/server/invoiceFunctions";
 import dotenv from "dotenv";
 dotenv.config({
   path: Assets.absoluteFilePath(".env"),
 });
-
-const insertInvoices = (invoicesObject) => {
-  invoicesObject.forEach((invoice) => {
-    const { name, customernumber } = invoice.customer;
-    const {
-      id,
-      transdate,
-      duedate,
-      invnumber,
-      description,
-      status,
-      currency,
-      amount,
-      paid,
-    } = invoice;
-    InvoiceCollection.insert({
-      id,
-      transdate,
-      duedate,
-      invnumber,
-      description,
-      name,
-      customernumber,
-      status,
-      currency,
-      amount,
-      paid,
-    });
-  });
-};
 
 // For requests with content-type JSON:
 WebApp.connectHandlers.use("/email", bodyParser.json());
@@ -53,14 +24,19 @@ WebApp.connectHandlers.use("/email", (req, res) => {
   res.end(JSON.stringify({ status: "ok", content: req.body }));
 });
 
+async function fetchAndInsertInvoices() {
+  const result = await fetchInvoices();
+  try {
+    insertInvoices(result.data.invoice);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 Meteor.startup(() => {
-  // current date (taking the time zone into account)
-  const todaysDate = moment().tz(process.env.TIME_ZONE).format("DD.MM.YYYY");
-  console.log("todaysDate: ", todaysDate);
+  // fetch invoices and update the "invoices" collection
+  fetchAndInsertInvoices();
 
   // create index for the id field in the collection "invoices"
   InvoiceCollection.rawCollection().createIndex({ id: 1 }, { unique: true });
-
-  // fetch invoices and update the "invoices" collection
-  fetchInvoices().then((result) => insertInvoices(result.data.invoice));
 });

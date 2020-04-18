@@ -1,5 +1,6 @@
 import React from "react";
 import { useTracker } from "meteor/react-meteor-data";
+import moment from "moment-timezone";
 import { InvoiceCollection } from "../../api/invoices";
 import { Container, Row, Col } from "react-bootstrap";
 
@@ -17,9 +18,11 @@ const Splitview = () => {
           {invoices.map((invoice, i) => (
             <div key={i}>
               <strong>{invoice.invnumber}</strong>
-              <p>Invoice date: {invoice.transdate}</p>
+              <p>
+                Invoice date: {moment(invoice.transdate).format("DD.MM.YYYY")}
+              </p>
               <p>Status: {invoice.status}</p>
-              <p>Due date: {invoice.duedate}</p>
+              <p>Due date: {moment(invoice.duedate).format("DD.MM.YYYY")}</p>
               <p>Customer: {invoice.name}</p>
               <p>Invoice for: {invoice.description}</p>
               <p>
