@@ -26,3 +26,7 @@ https://sendgrid.com/docs/for-developers/parsing-email/setting-up-the-inbound-pa
 
 - next? react, react router v4 and authentication
 https://forums.meteor.com/t/react-react-router-v4-meteor-1-5-authentication-example-app/39602
+
+- MeteorCollection.upsert(): 
+https://stackoverflow.com/questions/19555473/how-to-use-meteor-upsert
+and $setOnInsert: https://docs.mongodb.com/manual/reference/operator/update/setOnInsert/

@@ -1,3 +1,4 @@
+import { Random } from "meteor/random";
 import axios from "axios";
 import moment from "moment-timezone";
 import { InvoiceCollection } from "../api/invoices";
@@ -13,12 +14,11 @@ export async function fetchInvoices() {
   }
 }
 
-export const insertInvoices = (invoicesObject) => {
+export const upsertInvoices = (invoicesObject) => {
   invoicesObject.forEach((invoice) => {
-    const { name, customernumber } = invoice.customer;
+    const { customernumber } = invoice.customer;
+    const customername = invoice.customer.name;
     const {
-      id,
-      transdate,
       duedate,
       invnumber,
       description,
@@ -27,26 +27,40 @@ export const insertInvoices = (invoicesObject) => {
       amount,
       paid,
     } = invoice;
+    const invdate = invoice.transdate;
+    const invid = invoice.id;
+    const now = moment().tz(process.env.TIME_ZONE).format();
+    const _id = Random.id();
     try {
-      InvoiceCollection.insert({
-        id,
-        transdate,
-        duedate,
-        invnumber,
-        description,
-        name,
-        customernumber,
-        status,
-        currency,
-        amount,
-        paid,
-      });
+      InvoiceCollection.upsert(
+        { invid: invid },
+        {
+          $set: {
+            duedate,
+            invdate,
+            description,
+            status,
+            currency,
+            amount,
+            paid,
+            lastUpdated: now,
+          },
+          $setOnInsert: {
+            _id,
+            invid,
+            invnumber,
+            customername,
+            customernumber,
+            createdAt: now,
+          },
+        }
+      );
     } catch (err) {
       console.error(err.errmsg);
       console.error(
-        `invoice ${invnumber} with date ${moment(transdate).format(
+        `invoice ${invnumber} with date ${moment(invdate).format(
           "DD.MM.YYYY"
-        )} of customer ${name} for ${currency} ${amount}`
+        )} of customer ${customername} for ${currency} ${amount}`
       );
       console.error(" ");
     }

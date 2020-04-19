@@ -3,7 +3,7 @@ import bodyParser from "body-parser";
 import { InvoiceCollection } from "/imports/api/invoices";
 import {
   fetchInvoices,
-  insertInvoices,
+  upsertInvoices,
 } from "/imports/server/invoiceFunctions";
 import dotenv from "dotenv";
 dotenv.config({
@@ -24,10 +24,10 @@ WebApp.connectHandlers.use("/email", (req, res) => {
   res.end(JSON.stringify({ status: "ok", content: req.body }));
 });
 
-async function fetchAndInsertInvoices() {
+async function fetchAndUpsertInvoices() {
   const result = await fetchInvoices();
   try {
-    insertInvoices(result.data.invoice);
+    upsertInvoices(result.data.invoice);
   } catch (err) {
     console.error(err);
   }
@@ -35,8 +35,8 @@ async function fetchAndInsertInvoices() {
 
 Meteor.startup(() => {
   // fetch invoices and update the "invoices" collection
-  fetchAndInsertInvoices();
+  fetchAndUpsertInvoices();
 
-  // create index for the id field in the collection "invoices"
-  InvoiceCollection.rawCollection().createIndex({ id: 1 }, { unique: true });
+  // create index for the invid field in the collection "invoices" to ensure no duplicates (2nd layer, 1st is upsert based on invid)
+  InvoiceCollection.rawCollection().createIndex({ invid: 1 }, { unique: true });
 });
