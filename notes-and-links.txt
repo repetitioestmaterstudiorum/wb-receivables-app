@@ -20,13 +20,15 @@ https://guide.meteor.com/react.html#using-react-router but with react-router-dom
 https://docs.meteor.com/packages/webapp.html
 https://forums.meteor.com/t/getting-request-body-undefined-in-post-requests/42722
 
-- Sendgrid's Inbound Parse Webhook
-https://sendgrid.com/docs/for-developers/parsing-email/setting-up-the-inbound-parse-webhook/
-(will I need https://www.npmjs.com/package/@sendgrid/inbound-mail-parser ?)
-
-- next? react, react router v4 and authentication
-https://forums.meteor.com/t/react-react-router-v4-meteor-1-5-authentication-example-app/39602
-
 - MeteorCollection.upsert(): 
 https://stackoverflow.com/questions/19555473/how-to-use-meteor-upsert
 and $setOnInsert: https://docs.mongodb.com/manual/reference/operator/update/setOnInsert/
+
+- Sendgrid's Inbound Parse Webhook
+Setup service online:
+https://sendgrid.com/docs/for-developers/parsing-email/setting-up-the-inbound-parse-webhook/
+multer and webapp:
+https://forums.meteor.com/t/solved-receiving-multi-part-form-data-with-meteor-multer/49814/2
+
+- react, react router v4 and authentication
+https://forums.meteor.com/t/react-react-router-v4-meteor-1-5-authentication-example-app/39602
