@@ -6,6 +6,7 @@ import {
   fetchInvoices,
   upsertInvoices,
 } from "/imports/server/invoiceFunctions";
+import { emailToFilteredObject } from "/imports/server/emailToFilteredObject";
 import dotenv from "dotenv";
 dotenv.config({
   path: Assets.absoluteFilePath(".env"),
@@ -23,21 +24,13 @@ WebApp.connectHandlers.use("/email", multerUpload.none());
 WebApp.connectHandlers.use("/email", (req, res) => {
   // logging the request body for test purposes
   console.log("******************");
-  // console.log("req.body.from", req.body.from);
-  // console.log("req.body.to", req.body.to);
-  console.log("**");
   const envelope = JSON.parse(req.body.envelope);
-  console.log("envelope.to[0]", envelope.to[0]);
   console.log("envelope.from", envelope.from);
-  console.log("**");
   console.log("req.body.subject", req.body.subject);
-  console.log("req.body.email", req.body.email);
   // multiline string to json object
   const email = `${req.body.email}`;
   console.log("************************************************");
-  console.log("************************************************");
-  console.log("email", email);
-  console.log("************************************************");
+  console.log(emailToFilteredObject(email));
 
   // response to sender
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -46,7 +39,6 @@ WebApp.connectHandlers.use("/email", (req, res) => {
   res.end(
     JSON.stringify({
       status: "ok",
-      content: req.body,
     })
   );
 });
