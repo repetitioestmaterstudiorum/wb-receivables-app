@@ -6,7 +6,7 @@ import { createBrowserHistory } from "history";
 // route components
 import Header from "./components/Header";
 import Landing from "./pages/Landing";
-import Splitview from "./pages/Splitview";
+import Splitview from "./pages/Splitview/Splitview";
 import Consolidated from "./pages/Consolidated";
 import FourOFour from "./pages/FourOFour";
 

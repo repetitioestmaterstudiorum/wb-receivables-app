@@ -1,7 +1,7 @@
 import { Meteor } from "meteor/meteor";
 import { WebApp } from "meteor/webapp";
 import bodyParser from "body-parser";
-import { InvoiceCollection } from "/imports/api/invoices";
+import { InvoicesCollection } from "/imports/api/invoices";
 import {
   fetchInvoices,
   upsertInvoices,
@@ -57,5 +57,8 @@ Meteor.startup(() => {
   fetchAndUpsertInvoices();
 
   // create index for the invid field in the collection "invoices" to ensure no duplicates (2nd layer, 1st is upsert based on invid)
-  InvoiceCollection.rawCollection().createIndex({ invid: 1 }, { unique: true });
+  InvoicesCollection.rawCollection().createIndex(
+    { invid: 1 },
+    { unique: true }
+  );
 });
