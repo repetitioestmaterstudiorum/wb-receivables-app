@@ -1,7 +1,7 @@
 import { Random } from "meteor/random";
 import axios from "axios";
 import moment from "moment-timezone";
-import { InvoiceCollection } from "../api/invoices";
+import { InvoicesCollection } from "../api/invoices";
 
 export async function fetchInvoices() {
   const url = `https://service.runmyaccounts.com/api/latest/clients/webbutler/invoices/?status=OPEN&api_key=${process.env.RMA_API_KEY}`;
@@ -32,7 +32,7 @@ export const upsertInvoices = (invoicesObject) => {
     const now = moment().tz(process.env.TIME_ZONE).format();
     const _id = Random.id();
     try {
-      InvoiceCollection.upsert(
+      InvoicesCollection.upsert(
         { invid: invid },
         {
           $set: {
