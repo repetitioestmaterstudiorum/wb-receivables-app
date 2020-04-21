@@ -2,6 +2,7 @@
 $theme-colors: (
   "info": tomato,
   "danger": teal,
+  "primary": black,
 );
 
 @import "{}/node_modules/bootstrap/scss/bootstrap.scss";
@@ -12,4 +13,17 @@ body {
 }
 p {
   margin-bottom: 0;
+}
+a:hover {
+  text-decoration: none;
+}
+
+// header styles
+.header span {
+  padding-left: 0;
+  padding-right: 0;
+}
+.header .nav-link {
+  padding-left: 0;
+  padding-right: 0;
 }
