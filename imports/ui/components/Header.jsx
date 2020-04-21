@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <Container>
+    <Container className="header">
       <Navbar
         collapseOnSelect
         expand="sm"
@@ -13,27 +13,34 @@ const Header = () => {
         className="mb-3"
       >
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Link to="/">
+        <Nav.Link href="/">
           <img src="logo.png" alt="wB" style={{ maxWidth: "40px" }} />
-        </Link>
+        </Nav.Link>
         <Navbar.Collapse
           id="responsive-navbar-nav"
           className="mt-2 mt-sm-0 ml-0 ml-sm-1"
         >
           <Nav className="mr-auto">
-            <Link to="/splitview" className="nav-link">
-              Splitview
+            <Link to="/splitview" exact>
+              <Nav.Link href="#Splitview" as="span">
+                Splitview
+              </Nav.Link>
             </Link>
-            <Link to="/consolidated" className="nav-link">
-              Consolidated
+            <Link to="/consolidated">
+              <Nav.Link href="#Consolidated" as="span">
+                Consolidated
+              </Nav.Link>
+            </Link>
+            <Link to="/deleted">
+              <Nav.Link href="#Deleted" as="span">
+                Deleted
+              </Nav.Link>
             </Link>
           </Nav>
         </Navbar.Collapse>
-        <Nav>
-          <a href="#" className="nav-link">
-            Log out
-          </a>
-        </Nav>
+        <Nav.Link href="/" style={{ color: "#ffffff80" }}>
+          Logout
+        </Nav.Link>
       </Navbar>
     </Container>
   );

@@ -4,10 +4,11 @@ import { createBrowserHistory } from "history";
 /* outdated meteor docs: use `require("history").createBrowserHistory` instead of `require("history/createBrowserHistory")` */
 
 // route components
-import Header from "./components/Header";
+import Header from "./components/Header.jsx"; // with jsx because there's also a css file in the folder
 import Landing from "./pages/Landing";
-import Splitview from "./pages/Splitview/Splitview";
+import Splitview from "./pages/Splitview";
 import Consolidated from "./pages/Consolidated";
+import Deleted from "./pages/Deleted";
 import FourOFour from "./pages/FourOFour";
 
 const browserHistory = createBrowserHistory();
@@ -20,6 +21,7 @@ const Routes = () => {
         <Route exact path="/" component={Landing} />
         <Route exact path="/splitview" component={Splitview} />
         <Route exact path="/consolidated" component={Consolidated} />
+        <Route exact path="/deleted" component={Deleted} />
         <Route component={FourOFour} />
       </Switch>
     </Router>

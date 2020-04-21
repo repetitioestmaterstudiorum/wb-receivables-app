@@ -1,13 +1,17 @@
 import React from "react";
-import Invoice from "./Invoice";
+import Invoice from "../components/Invoice";
 import { useTracker } from "meteor/react-meteor-data";
-import { InvoicesCollection } from "../../../api/invoices";
+import { InvoicesCollection } from "../../api/invoices";
 import { Container, Row, Col } from "react-bootstrap";
 
 const Splitview = () => {
   Meteor.subscribe("invoices");
   const invoices = useTracker(() => {
-    return InvoicesCollection.find({}, { sort: { invdate: -1 } }).fetch();
+    return InvoicesCollection.find(
+      { isConsolidated: { $ne: true }, isDeleted: { $ne: true } },
+      { isDeleted: { $ne: true } },
+      { sort: { invdate: -1 } }
+    ).fetch();
   });
 
   return (
