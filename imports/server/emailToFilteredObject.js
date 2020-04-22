@@ -46,11 +46,15 @@ const getNewBalance = (emailText) => {
   const newBalanceRegex = /(\d+\D\d{2})\D$/;
   const newBalance = newBalanceRegex.exec(emailText);
   if (newBalance !== null) {
+    console.log("****************** SUCCESS");
+    console.log("newBalance", newBalance);
+    console.log("emailText to above success: ", emailText);
     return newBalance[1];
   } else {
+    console.log("****************** ISSUE");
     console.log("newBalance doesn't have [1]", newBalance);
     console.log("emailText to above issue: ", emailText);
-    return newBalance;
+    return "unable to fetch new balance";
   }
 };
 
