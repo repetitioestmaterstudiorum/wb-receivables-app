@@ -11,7 +11,6 @@ const Invoice = ({ props }) => {
     amount,
     currency,
     paid,
-    // lastUpdated,
     customername,
     description,
   } = props;
@@ -30,7 +29,6 @@ const Invoice = ({ props }) => {
       <p>
         Already paid: {currency} {paid}
       </p>
-      {/* <p>Last updated: {moment(lastUpdated).format("DD.MM.YYYY")}</p> */}
       <br />
     </div>
   );
