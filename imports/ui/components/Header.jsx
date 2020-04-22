@@ -13,15 +13,15 @@ const Header = () => {
         className="mb-3"
       >
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Nav.Link href="/">
+        <a href="/">
           <img src="logo.png" alt="wB" style={{ maxWidth: "40px" }} />
-        </Nav.Link>
+        </a>
         <Navbar.Collapse
           id="responsive-navbar-nav"
           className="mt-2 mt-sm-0 ml-0 ml-sm-1"
         >
           <Nav className="mr-auto">
-            <Link to="/splitview" exact>
+            <Link to="/splitview">
               <Nav.Link href="#Splitview" as="span">
                 Splitview
               </Nav.Link>
