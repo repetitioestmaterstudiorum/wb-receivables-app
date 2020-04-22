@@ -11,14 +11,14 @@ const Splitview = () => {
   const invoices = useTracker(() => {
     return InvoicesCollection.find(
       { isConsolidated: { $ne: true }, isDeleted: { $ne: true } },
-      { sort: { invdate: -1 } }
+      { sort: { invdate: 1 } }
     ).fetch();
   });
   Meteor.subscribe("payments");
   const payments = useTracker(() => {
     return PaymentsCollection.find(
       { isConsolidated: { $ne: true }, isDeleted: { $ne: true } },
-      { sort: { transactionDate: -1 } }
+      { sort: { transactionDate: 1 } }
     ).fetch();
   });
 
