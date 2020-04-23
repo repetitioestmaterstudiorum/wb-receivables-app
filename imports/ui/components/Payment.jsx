@@ -2,14 +2,23 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Form } from "react-bootstrap";
 
-const Payment = ({ paymentProps }) => {
-  const { transactionDate, transactionCurrency, transaction } = paymentProps;
+const Payment = (props) => {
+  const {
+    transactionDate,
+    transactionCurrency,
+    transaction,
+    _id,
+  } = props.payment;
+
+  const handlePaymentCheckbox = () => {
+    props.handlePaymentCheckbox(_id);
+  };
 
   return (
     <li className="mb-2">
       <Form.Check.Label>
-        <Form.Check.Input type="checkbox" />
-        Zahlung <strong>{transactionDate}</strong>
+        <Form.Check.Input type="checkbox" onChange={handlePaymentCheckbox} />
+        Payment: <strong>{transactionDate}</strong>
       </Form.Check.Label>
       <p>
         Amount:{" "}
@@ -22,7 +31,8 @@ const Payment = ({ paymentProps }) => {
 };
 
 propTypes = {
-  paymentProps: PropTypes.object,
+  payment: PropTypes.object,
+  handlePaymentCheckbox: PropTypes.func,
 };
 
 export default Payment;

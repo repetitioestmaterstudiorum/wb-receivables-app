@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import moment from "moment-timezone";
 import { Form } from "react-bootstrap";
 
-const Invoice = ({ invoiceProps }) => {
+const Invoice = (props) => {
   const {
     invnumber,
     invdate,
@@ -14,7 +14,8 @@ const Invoice = ({ invoiceProps }) => {
     customername,
     description,
     paid,
-  } = invoiceProps;
+    _id,
+  } = props.invoice;
 
   const now = Date.now();
   const tMinus = now - Date.parse(duedate);
@@ -25,10 +26,14 @@ const Invoice = ({ invoiceProps }) => {
     color: tMinusDaysRounded > 0 ? "black" : "#de5300",
   };
 
+  const handleInvoiceCheckbox = () => {
+    props.handleInvoiceCheckbox(_id);
+  };
+
   return (
     <li className="mb-2">
       <Form.Check.Label>
-        <Form.Check.Input type="checkbox" />
+        <Form.Check.Input type="checkbox" onChange={handleInvoiceCheckbox} />
         <p style={alertIfOverdue}>
           <strong>{invnumber}</strong>, {moment(invdate).format("DD.MM.YYYY")}
         </p>
@@ -59,7 +64,8 @@ const Invoice = ({ invoiceProps }) => {
 };
 
 propTypes = {
-  invoiceProps: PropTypes.object,
+  invoice: PropTypes.object,
+  handleInvoiceCheckbox: PropTypes.func,
 };
 
 export default Invoice;
