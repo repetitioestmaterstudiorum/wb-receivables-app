@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Form } from "react-bootstrap";
 
 const Payment = ({ props }) => {
   const {
@@ -11,17 +12,19 @@ const Payment = ({ props }) => {
   } = props;
 
   return (
-    <div>
-      <strong>{subject}</strong>
-      <p>Transaction date: {transactionDate}</p>
+    <li>
+      <Form.Check.Label>
+        <Form.Check.Input type="checkbox" />
+        Zahlung <strong>{transactionDate}</strong>
+      </Form.Check.Label>
       <p>
-        Amount: {transactionCurrency} {transaction}
-      </p>
-      <p>
-        New balance: {transactionCurrency} {newBalance}
+        Amount:{" "}
+        <strong>
+          {transactionCurrency} {transaction}
+        </strong>
       </p>
       <br />
-    </div>
+    </li>
   );
 };
 

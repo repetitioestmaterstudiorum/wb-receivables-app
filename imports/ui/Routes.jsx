@@ -1,7 +1,7 @@
 import React from "react";
 import { Router, Route, Switch } from "react-router-dom";
 import { createBrowserHistory } from "history";
-/* outdated meteor docs: use `require("history").createBrowserHistory` instead of `require("history/createBrowserHistory")` */
+/* the console said: use `require("history").createBrowserHistory` instead of `require("history/createBrowserHistory")` */
 
 // route components
 import Header from "./components/Header.jsx"; // with jsx because there's also a css file in the folder
