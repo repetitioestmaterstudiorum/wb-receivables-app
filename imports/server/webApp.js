@@ -22,7 +22,7 @@ const insertPayment = (from, subject, emailObject) => {
       transactionDate,
       transactionCurrency,
       transaction,
-      createdAt: now,
+      createdAt: now(),
       newBalance,
     });
   } catch (err) {

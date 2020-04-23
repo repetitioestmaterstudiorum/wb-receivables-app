@@ -28,7 +28,7 @@ const getTransactionDate = (emailText) => {
 
 // get new balane total
 const getNewBalance = (emailText) => {
-  const newBalanceRegex = /(\d+\D\d{2})\D$/;
+  const newBalanceRegex = /[a-z]\D[A-Z]{3}\D(\d+\D\d{2})/;
   const newBalance = newBalanceRegex.exec(emailText);
   if (newBalance !== null) {
     return newBalance[1];

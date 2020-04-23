@@ -24,6 +24,7 @@ const Deleted = () => {
 
   return (
     <Container>
+      deleted
       <Row>
         <Col sm={7}>
           <ul>

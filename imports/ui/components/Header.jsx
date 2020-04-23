@@ -10,7 +10,7 @@ const Header = () => {
         expand="sm"
         bg="dark"
         variant="dark"
-        className="mb-3"
+        className="mb-2"
       >
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <a href="/">
