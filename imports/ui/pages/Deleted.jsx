@@ -25,15 +25,19 @@ const Deleted = () => {
   return (
     <Container>
       <Row>
-        <Col lg={7}>
-          {invoices.map((invoices, i) => (
-            <Invoice props={invoices} key={i} />
-          ))}
+        <Col sm={7}>
+          <ul>
+            {invoices.map((invoices, i) => (
+              <Invoice props={invoices} key={i} />
+            ))}
+          </ul>
         </Col>
-        <Col lg={5}>
-          {payments.map((payment, i) => (
-            <Payment props={payment} key={i} />
-          ))}
+        <Col sm={5}>
+          <ul>
+            {payments.map((payment, i) => (
+              <Payment props={payment} key={i} />
+            ))}
+          </ul>
         </Col>
       </Row>
     </Container>
