@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Invoice from "../components/Invoice";
 import Payment from "../components/Payment";
 import { useTracker } from "meteor/react-meteor-data";
@@ -7,7 +7,9 @@ import { PaymentsCollection } from "../../api/payments";
 import { Container, Row, Col } from "react-bootstrap";
 
 const Splitview = () => {
+  // initial data from mongodb
   Meteor.subscribe("invoices");
+  Meteor.subscribe("payments");
   const invoices = useTracker(() => {
     return InvoicesCollection.find(
       {
@@ -17,7 +19,6 @@ const Splitview = () => {
       { sort: { invdate: 1 } }
     ).fetch();
   });
-  Meteor.subscribe("payments");
   const payments = useTracker(() => {
     return PaymentsCollection.find(
       {
@@ -27,6 +28,8 @@ const Splitview = () => {
       { sort: { transactionDate: 1 } }
     ).fetch();
   });
+
+  // bank account balances
   const eurBalanceObject = useTracker(() => {
     return PaymentsCollection.findOne(
       { transactionCurrency: "EUR" },
@@ -40,12 +43,36 @@ const Splitview = () => {
     );
   });
 
+  // checked states
+  const [checkedInvoices, setCheckedInvoices] = useState([]);
+  const [checkedPayments, setCheckedPayments] = useState([]);
+  const handleInvoiceCheckbox = (invoiceId) => {
+    checkedInvoices.length === 0
+      ? setCheckedInvoices([...checkedInvoices, invoiceId])
+      : setCheckedInvoices(
+          checkedInvoices.includes(invoiceId)
+            ? checkedInvoices.filter((element) => element !== invoiceId)
+            : [...checkedInvoices, invoiceId]
+        );
+  };
+  const handlePaymentCheckbox = (paymentId) => {
+    checkedPayments.length === 0
+      ? setCheckedPayments([...checkedPayments, paymentId])
+      : setCheckedPayments(
+          checkedPayments.includes(paymentId)
+            ? checkedPayments.filter((element) => element !== paymentId)
+            : [...checkedPayments, paymentId]
+        );
+  };
+
+  // mark deleted or paired
   const handleDelete = () => {
-    console.log("delete");
+    if (checkedInvoices.length !== 0) {
+      checkedInvoices.forEach((element) => Meteor.call("markDeleted", element));
+      setCheckedInvoices([]);
+    }
   };
-  const handlePair = () => {
-    console.log("pair");
-  };
+  const handlePair = () => {};
 
   return (
     <Container>
@@ -69,17 +96,27 @@ const Splitview = () => {
         <Col sm={7}>
           <h2>Invoices</h2>
           <ul>
-            {invoices.map((invoice) => (
-              <Invoice invoiceProps={invoice} key={invoice._id} />
-            ))}
+            {invoices &&
+              invoices.map((invoice) => (
+                <Invoice
+                  invoice={invoice}
+                  key={invoice._id}
+                  handleInvoiceCheckbox={handleInvoiceCheckbox}
+                />
+              ))}
           </ul>
         </Col>
         <Col sm={5}>
           <h2>Payments</h2>
           <ul>
-            {payments.map((payment) => (
-              <Payment paymentProps={payment} key={payment._id} />
-            ))}
+            {payments &&
+              payments.map((payment) => (
+                <Payment
+                  payment={payment}
+                  key={payment._id}
+                  handlePaymentCheckbox={handlePaymentCheckbox}
+                />
+              ))}
           </ul>
         </Col>
       </Row>
