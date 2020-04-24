@@ -18,7 +18,11 @@ const Deleted = () => {
   });
   const payments = useTracker(() => {
     return PaymentsCollection.find(
-      { isConsolidated: { $ne: true }, isDeleted: true },
+      {
+        isConsolidated: { $ne: true },
+        isDeleted: true,
+        subject: "Zahlungseingang",
+      },
       { sort: { transactionDate: -1 } }
     ).fetch();
   });

@@ -24,6 +24,7 @@ const Splitview = () => {
       {
         isConsolidated: { $ne: true },
         isDeleted: { $ne: true },
+        subject: "Zahlungseingang",
       },
       { sort: { transactionDate: 1 } }
     ).fetch();

@@ -44,7 +44,8 @@ export const webApp = () => {
   WebApp.connectHandlers.use("/email", (req, res) => {
     // logging the request body for test purposes
     const subject = req.body.subject;
-    const isPayment = subject === "Zahlungseingang" ? true : false;
+    const isPayment =
+      subject === "Zahlungseingang" || subject === "Belastung" ? true : false;
     if (isPayment) {
       const envelope = JSON.parse(req.body.envelope);
       const from = envelope.from;
