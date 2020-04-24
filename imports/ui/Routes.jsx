@@ -9,6 +9,7 @@ import Landing from "./pages/Landing";
 import Splitview from "./pages/Splitview";
 import Consolidated from "./pages/Consolidated";
 import Deleted from "./pages/Deleted";
+import Outgoing from "./pages/Outgoing";
 import FourOFour from "./pages/FourOFour";
 
 const browserHistory = createBrowserHistory();
@@ -22,6 +23,7 @@ const Routes = () => {
         <Route exact path="/splitview" component={Splitview} />
         <Route exact path="/consolidated" component={Consolidated} />
         <Route exact path="/deleted" component={Deleted} />
+        <Route exact path="/outgoing" component={Outgoing} />
         <Route component={FourOFour} />
       </Switch>
     </Router>

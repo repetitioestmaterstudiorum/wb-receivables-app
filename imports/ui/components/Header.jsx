@@ -36,6 +36,11 @@ const Header = () => {
                 Deleted
               </Nav.Link>
             </Link>
+            <Link to="/outgoing">
+              <Nav.Link href="#Outgoing" as="span">
+                Outgoing
+              </Nav.Link>
+            </Link>
           </Nav>
         </Navbar.Collapse>
         <Nav.Link href="/" style={{ color: "#ffffff80" }}>
