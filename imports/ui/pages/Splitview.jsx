@@ -67,12 +67,25 @@ const Splitview = () => {
 
   // mark deleted or paired
   const handleDelete = () => {
+    if (checkedInvoices.length === 0 && checkedPayments.length === 0) {
+      alert("Choose invoices/payements to delete");
+    }
     if (checkedInvoices.length !== 0) {
-      checkedInvoices.forEach((element) => Meteor.call("markDeleted", element));
+      checkedInvoices.forEach((element) =>
+        Meteor.call("markInvoiceDeleted", element)
+      );
       setCheckedInvoices([]);
     }
+    if (checkedPayments.length !== 0) {
+      checkedPayments.forEach((element) =>
+        Meteor.call("markPaymentDeleted", element)
+      );
+      setCheckedPayments([]);
+    }
   };
-  const handlePair = () => {};
+  const handlePair = () => {
+    alert("be patient, my friend");
+  };
 
   return (
     <Container>
@@ -95,29 +108,37 @@ const Splitview = () => {
       <Row>
         <Col sm={7}>
           <h2>Invoices</h2>
-          <ul>
-            {invoices &&
-              invoices.map((invoice) => (
-                <Invoice
-                  invoice={invoice}
-                  key={invoice._id}
-                  handleInvoiceCheckbox={handleInvoiceCheckbox}
-                />
-              ))}
-          </ul>
+          {invoices.length === 0 ? (
+            <p>No new invoices..</p>
+          ) : (
+            <ul>
+              {invoices &&
+                invoices.map((invoice) => (
+                  <Invoice
+                    invoice={invoice}
+                    key={invoice._id}
+                    handleInvoiceCheckbox={handleInvoiceCheckbox}
+                  />
+                ))}
+            </ul>
+          )}
         </Col>
         <Col sm={5}>
           <h2>Payments</h2>
-          <ul>
-            {payments &&
-              payments.map((payment) => (
-                <Payment
-                  payment={payment}
-                  key={payment._id}
-                  handlePaymentCheckbox={handlePaymentCheckbox}
-                />
-              ))}
-          </ul>
+          {payments.length === 0 ? (
+            <p>No new payments..</p>
+          ) : (
+            <ul>
+              {payments &&
+                payments.map((payment) => (
+                  <Payment
+                    payment={payment}
+                    key={payment._id}
+                    handlePaymentCheckbox={handlePaymentCheckbox}
+                  />
+                ))}
+            </ul>
+          )}
         </Col>
       </Row>
     </Container>

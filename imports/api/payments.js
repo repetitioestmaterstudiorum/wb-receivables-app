@@ -1,4 +1,5 @@
 import { Mongo } from "meteor/mongo";
+import { check } from "meteor/check";
 
 export const PaymentsCollection = new Mongo.Collection("payments");
 
@@ -8,3 +9,20 @@ if (Meteor.isServer) {
     return PaymentsCollection.find();
   });
 }
+
+Meteor.methods({
+  markPaymentDeleted(paymentId) {
+    check(paymentId, String);
+    PaymentsCollection.update(
+      { _id: paymentId },
+      { $set: { isDeleted: true } }
+    );
+  },
+  markPaymentNotDeleted(paymentId) {
+    check(paymentId, String);
+    PaymentsCollection.update(
+      { _id: paymentId },
+      { $set: { isDeleted: false } }
+    );
+  },
+});
