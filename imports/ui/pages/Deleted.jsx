@@ -47,11 +47,20 @@ const Deleted = () => {
 
   // restore
   const handleRestore = () => {
+    if (checkedInvoices.length === 0 && checkedPayments.length === 0) {
+      alert("Choose invoices/payements to restore");
+    }
     if (checkedInvoices.length !== 0) {
       checkedInvoices.forEach((element) =>
-        Meteor.call("markNotDeleted", element)
+        Meteor.call("markInvoiceNotDeleted", element)
       );
       setCheckedInvoices([]);
+    }
+    if (checkedPayments.length !== 0) {
+      checkedPayments.forEach((element) =>
+        Meteor.call("markPaymentNotDeleted", element)
+      );
+      setCheckedPayments([]);
     }
   };
 
@@ -65,26 +74,38 @@ const Deleted = () => {
       </button>
       <Row>
         <Col sm={7}>
-          <ul>
-            {invoices.map((invoice) => (
-              <Invoice
-                invoice={invoice}
-                key={invoice._id}
-                handleInvoiceCheckbox={handleInvoiceCheckbox}
-              />
-            ))}
-          </ul>
+          <h2>Invoices</h2>
+          {invoices.length === 0 ? (
+            <p>No deleted invoices..</p>
+          ) : (
+            <ul>
+              {invoices &&
+                invoices.map((invoice) => (
+                  <Invoice
+                    invoice={invoice}
+                    key={invoice._id}
+                    handleInvoiceCheckbox={handleInvoiceCheckbox}
+                  />
+                ))}
+            </ul>
+          )}
         </Col>
         <Col sm={5}>
-          <ul>
-            {payments.map((payment, i) => (
-              <Payment
-                payment={payment}
-                key={payment._id}
-                handlePaymentCheckbox={handlePaymentCheckbox}
-              />
-            ))}
-          </ul>
+          <h2>Payments</h2>
+          {payments.length === 0 ? (
+            <p>No deleted payments..</p>
+          ) : (
+            <ul>
+              {payments &&
+                payments.map((payment) => (
+                  <Payment
+                    payment={payment}
+                    key={payment._id}
+                    handlePaymentCheckbox={handlePaymentCheckbox}
+                  />
+                ))}
+            </ul>
+          )}
         </Col>
       </Row>
     </Container>

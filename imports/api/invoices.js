@@ -11,14 +11,14 @@ if (Meteor.isServer) {
 }
 
 Meteor.methods({
-  markDeleted(invoiceId) {
+  markInvoiceDeleted(invoiceId) {
     check(invoiceId, String);
     InvoicesCollection.update(
       { _id: invoiceId },
       { $set: { isDeleted: true } }
     );
   },
-  markNotDeleted(invoiceId) {
+  markInvoiceNotDeleted(invoiceId) {
     check(invoiceId, String);
     InvoicesCollection.update(
       { _id: invoiceId },
