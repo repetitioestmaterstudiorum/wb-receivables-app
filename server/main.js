@@ -1,10 +1,11 @@
 import { Meteor } from "meteor/meteor";
-import { InvoicesCollection } from "/imports/api/invoices";
+import { InvoicesCollection } from "../imports/api/invoices";
 import {
   fetchInvoices,
   upsertInvoices,
-} from "/imports/server/invoiceFunctions";
-import { webApp } from "/imports/server/webApp";
+} from "../imports/server/invoiceFunctions";
+import { webApp } from "../imports/server/webApp";
+import "../imports/api/invPaymentPairs";
 
 // fetch invoice data
 async function fetchAndUpsertInvoices() {

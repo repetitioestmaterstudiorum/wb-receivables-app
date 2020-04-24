@@ -19,7 +19,7 @@ const Outgoing = () => {
     <Container>
       <Row>
         <Col>
-          <h1>Outgoing payments</h1>
+          <h1>Outgoing payments:</h1>
           {payments.length === 0 ? (
             <p>No outgoing payments..</p>
           ) : (
@@ -27,7 +27,7 @@ const Outgoing = () => {
               {payments &&
                 payments.map((payment) => (
                   <p key={payment._id}>
-                    <strong>{payment.transactionDate}: </strong>
+                    - <strong>{payment.transactionDate}: </strong>
                     {payment.transactionCurrency} {payment.transaction} (new
                     balance: {payment.newBalance})
                   </p>

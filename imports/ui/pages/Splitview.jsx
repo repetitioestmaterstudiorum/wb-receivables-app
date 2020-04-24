@@ -4,6 +4,7 @@ import Payment from "../components/Payment";
 import { useTracker } from "meteor/react-meteor-data";
 import { InvoicesCollection } from "../../api/invoices";
 import { PaymentsCollection } from "../../api/payments";
+import "../../api/invPaymentPairs";
 import { Container, Row, Col } from "react-bootstrap";
 
 const Splitview = () => {
@@ -29,7 +30,6 @@ const Splitview = () => {
       { sort: { transactionDate: 1 } }
     ).fetch();
   });
-
   // bank account balances
   const eurBalanceObject = useTracker(() => {
     return PaymentsCollection.findOne(
@@ -85,7 +85,21 @@ const Splitview = () => {
     }
   };
   const handlePair = () => {
-    alert("be patient, my friend");
+    console.log("checkedInvoices", checkedInvoices);
+    console.log("checkedPayments", checkedPayments);
+    if (checkedInvoices.length === 0 || checkedPayments.length === 0) {
+      alert("Choose one invoice and one payment to pair");
+    } else if (checkedInvoices.length > 1 || checkedPayments.length > 1) {
+      alert("You can only pair one invoice and one payment at a time");
+    } else {
+      console.log("one invoice and one payment chosen");
+      const pairObject = {
+        createdAt: new Date(),
+        invoiceId: checkedInvoices[0],
+        paymentId: checkedPayments[0],
+      };
+      Meteor.call("addPair", pairObject);
+    }
   };
 
   return (

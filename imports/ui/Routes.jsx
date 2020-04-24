@@ -7,7 +7,7 @@ import { createBrowserHistory } from "history";
 import Header from "./components/Header.jsx"; // with jsx because there's also a css file in the folder
 import Landing from "./pages/Landing";
 import Splitview from "./pages/Splitview";
-import Consolidated from "./pages/Consolidated";
+import Consolidated from "./pages/Consolidated/Consolidated";
 import Deleted from "./pages/Deleted";
 import Outgoing from "./pages/Outgoing";
 import FourOFour from "./pages/FourOFour";
