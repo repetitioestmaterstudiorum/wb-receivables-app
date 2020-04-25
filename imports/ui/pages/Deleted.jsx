@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { InvoicesCollection } from "../../api/invoices";
-import { PaymentsCollection } from "../../api/payments";
+import { InvoicesCollection } from "../../api/collections/invoices";
+import { PaymentsCollection } from "../../api/collections/payments";
 import { useTracker } from "meteor/react-meteor-data";
 import Invoice from "../components/Invoice";
 import Payment from "../components/Payment";

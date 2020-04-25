@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import Invoice from "../components/Invoice";
 import Payment from "../components/Payment";
 import { useTracker } from "meteor/react-meteor-data";
-import { InvoicesCollection, InvoicesFetchLog } from "../../api/invoices";
-import { PaymentsCollection } from "../../api/payments";
-import "../../api/invPaymentPairs";
+import {
+  InvoicesCollection,
+  InvoicesFetchLog,
+} from "../../api/collections/invoices";
+import { PaymentsCollection } from "../../api/collections/payments";
+import "../../api/collections/invPaymentPairs";
 import moment from "moment-timezone";
 import { Container, Row, Col } from "react-bootstrap";
 

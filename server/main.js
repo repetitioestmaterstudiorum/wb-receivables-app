@@ -1,7 +1,7 @@
 import { Meteor } from "meteor/meteor";
-import { InvoicesCollection } from "../imports/api/invoices";
+import { InvoicesCollection } from "../imports/api/collections/invoices";
 import { parseEmail } from "../imports/server/parseEmail";
-import "../imports/api/invPaymentPairs";
+import "../imports/api/collections/invPaymentPairs";
 
 Meteor.startup(() => {
   // listen to incoming emails and add them to the collection

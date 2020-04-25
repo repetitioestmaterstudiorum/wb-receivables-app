@@ -1,5 +1,5 @@
 import React from "react";
-import { PaymentsCollection } from "../../api/payments";
+import { PaymentsCollection } from "../../api/collections/payments";
 import { useTracker } from "meteor/react-meteor-data";
 import { Container, Row, Col } from "react-bootstrap";
 

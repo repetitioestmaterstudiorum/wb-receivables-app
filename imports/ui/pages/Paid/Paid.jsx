@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useTracker } from "meteor/react-meteor-data";
-import { InvPaymentPairsCollection } from "../../../api/invPaymentPairs";
+import { InvPaymentPairsCollection } from "../../../api/collections/invPaymentPairs";
 import Pair from "./Pair";
 import { Container } from "react-bootstrap";
 
