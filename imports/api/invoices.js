@@ -25,4 +25,15 @@ Meteor.methods({
       { $set: { isDeleted: false } }
     );
   },
+  invoiceIsPaired(invoiceId) {
+    check(invoiceId, String);
+    InvoicesCollection.update({ _id: invoiceId }, { $set: { isPaired: true } });
+  },
+  invoiceIsNotPaired(invoiceId) {
+    check(invoiceId, String);
+    InvoicesCollection.update(
+      { _id: invoiceId },
+      { $set: { isPaired: false } }
+    );
+  },
 });

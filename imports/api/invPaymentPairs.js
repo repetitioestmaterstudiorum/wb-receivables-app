@@ -17,21 +17,8 @@ Meteor.methods({
     check(object, Object);
     InvPaymentPairsCollection.insert(object);
   },
+  removePair(pairId) {
+    check(pairId, String);
+    InvPaymentPairsCollection.remove({ _id: pairId });
+  },
 });
-
-// Meteor.methods({
-//   markInvoiceDeleted(invoiceId) {
-//     check(invoiceId, String);
-//     InvoicesCollection.update(
-//       { _id: invoiceId },
-//       { $set: { isDeleted: true } }
-//     );
-//   },
-//   markInvoiceNotDeleted(invoiceId) {
-//     check(invoiceId, String);
-//     InvoicesCollection.update(
-//       { _id: invoiceId },
-//       { $set: { isDeleted: false } }
-//     );
-//   },
-// });

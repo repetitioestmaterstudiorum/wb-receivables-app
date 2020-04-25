@@ -16,23 +16,29 @@ const Paid = () => {
 
   // checked states
   const [checkedPairs, setCheckedPairs] = useState([]);
-  const handlePairCheckbox = (paidId) => {
+  const handlePairCheckbox = (pairId) => {
     checkedPairs.length === 0
-      ? setCheckedPairs([...checkedPairs, paidId])
+      ? setCheckedPairs([...checkedPairs, pairId])
       : setCheckedPairs(
-          checkedPairs.includes(paidId)
-            ? checkedPairs.filter((element) => element !== paidId)
-            : [...checkedPairs, paidId]
+          checkedPairs.includes(pairId)
+            ? checkedPairs.filter((element) => element !== pairId)
+            : [...checkedPairs, pairId]
         );
-    console.log("checkedPairs", checkedPairs);
   };
 
   // mark not paired
   const handleUnpair = () => {
-    console.log("handleUnpair");
-    // Meteor.call(paymentIsNotPaired, paymentId)
-    // Meteor.call(invoiceIsNotPaired, invoiceId);
-    // Meteor.call(removePair, pairId)
+    if (checkedPairs.length === 0) {
+      alert("Selecte pair(s) to unpair");
+    } else {
+      checkedPairs.forEach((pairId) => {
+        Meteor.call("removePair", pairId);
+        const pair = invPaymentPairs.find((pair) => pair._id === pairId);
+        Meteor.call("invoiceIsNotPaired", pair.invoiceId);
+        Meteor.call("paymentIsNotPaired", pair.paymentId);
+      });
+      setCheckedPairs([]);
+    }
   };
 
   return (
