@@ -15,15 +15,29 @@ const getTransactionCurrency = (transaction) => {
 // get transaction
 const getTransaction = (emailText) => {
   const transactionRegex = /(\d+\D\d{2})\D{2,}/;
-  const transaction = transactionRegex.exec(emailText)[1];
-  return transaction;
+  const transaction = transactionRegex.exec(emailText);
+  if (transaction !== null) {
+    return transaction[1];
+  } else {
+    console.error("****************** :(");
+    console.error("transaction doesn't have [1]", transaction);
+    console.error("emailText to above issue: ", emailText);
+    return "unable to fetch the transaction";
+  }
 };
 
 // get transaction date
 const getTransactionDate = (emailText) => {
   const transactionDateRegex = /am\D(\d{2}.\d{2}.\d{4})/;
-  const transactionDate = transactionDateRegex.exec(emailText)[1];
-  return transactionDate;
+  const transactionDate = transactionDateRegex.exec(emailText);
+  if (transactionDate !== null) {
+    return transactionDate[1];
+  } else {
+    console.error("****************** :(");
+    console.error("transactionDate doesn't have [1]", transactionDate);
+    console.error("emailText to above issue: ", emailText);
+    return "unable to fetch transaction date";
+  }
 };
 
 // get new balane total
