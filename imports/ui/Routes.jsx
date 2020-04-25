@@ -6,8 +6,8 @@ import { createBrowserHistory } from "history";
 // route components
 import Header from "./components/Header.jsx"; // with jsx because there's also a css file in the folder
 import Landing from "./pages/Landing";
-import Splitview from "./pages/Splitview";
-import Consolidated from "./pages/Consolidated/Consolidated";
+import Open from "./pages/Open";
+import Paid from "./pages/Paid/Paid";
 import Deleted from "./pages/Deleted";
 import Outgoing from "./pages/Outgoing";
 import FourOFour from "./pages/FourOFour";
@@ -20,8 +20,8 @@ const Routes = () => {
       <Header />
       <Switch>
         <Route exact path="/" component={Landing} />
-        <Route exact path="/splitview" component={Splitview} />
-        <Route exact path="/consolidated" component={Consolidated} />
+        <Route exact path="/open" component={Open} />
+        <Route exact path="/paid" component={Paid} />
         <Route exact path="/deleted" component={Deleted} />
         <Route exact path="/outgoing" component={Outgoing} />
         <Route component={FourOFour} />
