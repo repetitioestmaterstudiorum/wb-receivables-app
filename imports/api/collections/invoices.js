@@ -2,8 +2,8 @@ import { Meteor } from "meteor/meteor";
 import { Mongo } from "meteor/mongo";
 import { check } from "meteor/check";
 
-import { fetchAndUpsertInvoices } from "./fetchAndUpsertInvoices";
-import { now } from "./now";
+import { fetchAndUpsertInvoices } from "../fetchAndUpsertInvoices";
+import { now } from "../now";
 
 export const InvoicesCollection = new Mongo.Collection("invoices");
 export const InvoicesFetchLog = new Mongo.Collection("invoicesfetchlog");

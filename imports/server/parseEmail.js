@@ -3,7 +3,7 @@ import bodyParser from "body-parser";
 import { emailToFilteredObject } from "/imports/server/emailToFilteredObject";
 const multer = require("multer");
 const multerUpload = multer();
-import { PaymentsCollection } from "/imports/api/payments";
+import { PaymentsCollection } from "/imports/api/collections/payments";
 import { now } from "../api/now";
 
 // handle inbound emails via post request
