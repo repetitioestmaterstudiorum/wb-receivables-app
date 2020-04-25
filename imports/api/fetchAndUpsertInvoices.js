@@ -1,9 +1,9 @@
 import { Random } from "meteor/random";
 import axios from "axios";
 import moment from "moment-timezone";
-import { InvoicesCollection } from "../api/invoices";
+import { InvoicesCollection } from "./invoices";
 
-export async function fetchInvoices() {
+async function fetchInvoices() {
   const url = `https://service.runmyaccounts.com/api/latest/clients/webbutler/invoices/?status=OPEN&api_key=${process.env.RMA_API_KEY}`;
   try {
     const result = await axios.get(url);
@@ -14,7 +14,7 @@ export async function fetchInvoices() {
   }
 }
 
-export const upsertInvoices = (invoicesObject) => {
+const upsertInvoices = (invoicesObject) => {
   invoicesObject.forEach((invoice) => {
     const { customernumber } = invoice.customer;
     const customername = invoice.customer.name;
@@ -66,3 +66,14 @@ export const upsertInvoices = (invoicesObject) => {
     }
   });
 };
+
+// fetch invoice data
+export async function fetchAndUpsertInvoices() {
+  const result = await fetchInvoices();
+  try {
+    upsertInvoices(result.data.invoice);
+    Meteor.call("updateInvoicesFetchLog");
+  } catch (err) {
+    console.error(err);
+  }
+}

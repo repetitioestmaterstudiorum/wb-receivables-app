@@ -4,11 +4,10 @@ import { emailToFilteredObject } from "/imports/server/emailToFilteredObject";
 const multer = require("multer");
 const multerUpload = multer();
 import { PaymentsCollection } from "/imports/api/payments";
-import { now } from "/imports/server/now";
+import { now } from "../api/now";
 
 // handle inbound emails via post request
 const insertPayment = (from, subject, emailObject) => {
-  // const now = moment().tz(process.env.TIME_ZONE).format();
   const {
     transactionDate,
     transactionCurrency,
@@ -31,7 +30,7 @@ const insertPayment = (from, subject, emailObject) => {
 };
 
 // For requests with content-type JSON:
-export const webApp = () => {
+export const parseEmail = () => {
   WebApp.connectHandlers.use("/email", bodyParser.json());
   // For requests with content-type application/x-www-form-urlencoded
   WebApp.connectHandlers.use(

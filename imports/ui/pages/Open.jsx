@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import Invoice from "../components/Invoice";
 import Payment from "../components/Payment";
 import { useTracker } from "meteor/react-meteor-data";
-import { InvoicesCollection } from "../../api/invoices";
+import { InvoicesCollection, InvoicesFetchLog } from "../../api/invoices";
 import { PaymentsCollection } from "../../api/payments";
 import "../../api/invPaymentPairs";
+import moment from "moment-timezone";
 import { Container, Row, Col } from "react-bootstrap";
 
 const Open = () => {
@@ -135,6 +136,19 @@ const Open = () => {
     }
   };
 
+  Meteor.subscribe("invoicesfetchlog");
+  const lastUpdatedInvoices = useTracker(() => {
+    return InvoicesFetchLog.findOne(
+      { createdAt: 1 },
+      { sort: { createdAt: -1, limit: 1 } }
+    );
+  });
+  console.log("lastUpdatedInvoices", lastUpdatedInvoices);
+
+  const handleFetchInvoices = () => {
+    Meteor.call("fetchInvoices");
+  };
+
   return (
     <Container>
       <h1>
@@ -150,18 +164,30 @@ const Open = () => {
           marginBottom: "0.7rem",
         }}
       />
-      <button
-        className="btn btn-outline-success btn-sm mb-2 mr-2"
-        onClick={handlePair}
-      >
-        Pair
-      </button>
-      <button
-        className="btn btn-outline-info btn-sm mb-2"
-        onClick={handleDelete}
-      >
-        Delete
-      </button>
+      <div className="align-middle mb-2">
+        <button
+          className="btn btn-outline-success btn-sm mr-2"
+          onClick={handlePair}
+        >
+          Pair
+        </button>
+        <button
+          className="btn btn-outline-info btn-sm mr-2"
+          onClick={handleDelete}
+        >
+          Delete
+        </button>
+        <button
+          className="btn btn-outline-secondary btn-sm mr-2"
+          onClick={handleFetchInvoices}
+        >
+          Fetch Invoices
+        </button>
+        <span style={{ lineHeight: "1.8" }}>
+          &#183; last fetch:{" "}
+          {moment(lastUpdatedInvoices).format("DD.MM.YYYY HH:mm")}
+        </span>
+      </div>
       <Row>
         <Col sm={7}>
           <h2>Invoices</h2>
