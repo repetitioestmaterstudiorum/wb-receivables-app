@@ -21,14 +21,14 @@ const Header = () => {
           className="mt-2 mt-sm-0 ml-0 ml-sm-1"
         >
           <Nav className="mr-auto">
-            <Link to="/splitview">
-              <Nav.Link href="#Splitview" as="span">
-                Splitview
+            <Link to="/open">
+              <Nav.Link href="#Open" as="span">
+                Open
               </Nav.Link>
             </Link>
-            <Link to="/consolidated">
-              <Nav.Link href="#Consolidated" as="span">
-                Consolidated
+            <Link to="/paid">
+              <Nav.Link href="#Paid" as="span">
+                Paid
               </Nav.Link>
             </Link>
             <Link to="/deleted">
@@ -38,7 +38,7 @@ const Header = () => {
             </Link>
             <Link to="/outgoing">
               <Nav.Link href="#Outgoing" as="span">
-                Outgoing
+                (Outgoing Payments)
               </Nav.Link>
             </Link>
           </Nav>

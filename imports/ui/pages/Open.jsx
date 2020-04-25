@@ -7,14 +7,14 @@ import { PaymentsCollection } from "../../api/payments";
 import "../../api/invPaymentPairs";
 import { Container, Row, Col } from "react-bootstrap";
 
-const Splitview = () => {
+const Open = () => {
   // initial data from mongodb
   Meteor.subscribe("invoices");
   Meteor.subscribe("payments");
   const invoices = useTracker(() => {
     return InvoicesCollection.find(
       {
-        isConsolidated: { $ne: true },
+        isPaired: { $ne: true },
         isDeleted: { $ne: true },
       },
       { sort: { invdate: 1 } }
@@ -23,26 +23,37 @@ const Splitview = () => {
   const payments = useTracker(() => {
     return PaymentsCollection.find(
       {
-        isConsolidated: { $ne: true },
+        isPaired: { $ne: true },
         isDeleted: { $ne: true },
         subject: "Zahlungseingang",
       },
       { sort: { transactionDate: 1 } }
     ).fetch();
   });
+
   // bank account balances
-  const eurBalanceObject = useTracker(() => {
-    return PaymentsCollection.findOne(
-      { transactionCurrency: "EUR" },
-      { sort: { createdAt: -1, limit: 1 } }
-    );
-  });
   const chfBalanceObject = useTracker(() => {
     return PaymentsCollection.findOne(
       { transactionCurrency: "CHF" },
       { sort: { createdAt: -1, limit: 1 } }
     );
   });
+  const eurBalanceObject = useTracker(() => {
+    return PaymentsCollection.findOne(
+      { transactionCurrency: "EUR" },
+      { sort: { createdAt: -1, limit: 1 } }
+    );
+  });
+
+  // receivable totals
+  const getReceivableTotal = (currency) => {
+    return invoices
+      .filter((invoice) => invoice.currency === currency)
+      .map((invoices) => parseFloat(invoices.amount))
+      .reduce((a, b) => a + b, 0);
+  };
+  const chfReceivableTotal = getReceivableTotal("CHF");
+  const eurReceivableTotal = getReceivableTotal("EUR");
 
   // checked states
   const [checkedInvoices, setCheckedInvoices] = useState([]);
@@ -85,29 +96,48 @@ const Splitview = () => {
     }
   };
   const handlePair = () => {
-    console.log("checkedInvoices", checkedInvoices);
-    console.log("checkedPayments", checkedPayments);
     if (checkedInvoices.length === 0 || checkedPayments.length === 0) {
       alert("Choose one invoice and one payment to pair");
     } else if (checkedInvoices.length > 1 || checkedPayments.length > 1) {
       alert("You can only pair one invoice and one payment at a time");
     } else {
-      console.log("one invoice and one payment chosen");
+      // get relevant invoice and payment info
+      const invoice = invoices.find(
+        (invoice) => invoice._id === checkedInvoices[0]
+      );
+      const payment = payments.find(
+        (payment) => payment._id === checkedPayments[0]
+      );
+      // prepair data object and create a pair
       const pairObject = {
+        invoiceNumber: invoice.invnumber,
+        invoiceDate: invoice.invdate,
+        customer: invoice.customername,
+        invoiceAmount: invoice.amount,
+        currency: invoice.currency,
+        paymentDate: payment.transactionDate,
+        invoiceId: invoice._id,
+        paymentId: payment._id,
         createdAt: new Date(),
-        invoiceId: checkedInvoices[0],
-        paymentId: checkedPayments[0],
       };
       Meteor.call("addPair", pairObject);
+      Meteor.call("invoiceIsPaired", checkedInvoices[0]);
+      Meteor.call("paymentIsPaired", checkedPayments[0]);
+      setCheckedInvoices([]);
+      setCheckedPayments([]);
     }
   };
 
   return (
     <Container>
       <h1>
-        Balances: <u>EUR {eurBalanceObject && eurBalanceObject.newBalance}</u>,{" "}
-        <u>CHF {chfBalanceObject && chfBalanceObject.newBalance}</u>
+        Balances: <u>CHF {chfBalanceObject && chfBalanceObject.newBalance}</u>,{" "}
+        <u>EUR {eurBalanceObject && eurBalanceObject.newBalance}</u>
       </h1>
+      <p>
+        Total receivables: CHF {chfReceivableTotal}, EUR {eurReceivableTotal}
+      </p>
+      <hr style={{ marginTop: "0.2rem", marginBottom: "0.7rem" }} />
       <button
         className="btn btn-outline-success btn-sm mb-2 mr-2"
         onClick={handlePair}
@@ -160,4 +190,4 @@ const Splitview = () => {
   );
 };
 
-export default Splitview;
+export default Open;
