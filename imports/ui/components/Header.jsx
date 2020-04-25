@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Navbar, Nav } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -13,39 +13,34 @@ const Header = () => {
         className="mb-2"
       >
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <a href="/">
+        <img src="logo.png" alt="wB" style={{ maxWidth: "40px" }} />
+        {/* <a href="/">
           <img src="logo.png" alt="wB" style={{ maxWidth: "40px" }} />
-        </a>
+        </a> */}
         <Navbar.Collapse
           id="responsive-navbar-nav"
           className="mt-2 mt-sm-0 ml-0 ml-sm-1"
         >
           <Nav className="mr-auto">
-            <Link to="/open">
-              <Nav.Link href="#Open" as="span">
-                Open
-              </Nav.Link>
-            </Link>
-            <Link to="/paid">
-              <Nav.Link href="#Paid" as="span">
-                Paid
-              </Nav.Link>
-            </Link>
-            <Link to="/deleted">
-              <Nav.Link href="#Deleted" as="span">
-                Deleted
-              </Nav.Link>
-            </Link>
-            <Link to="/outgoing">
-              <Nav.Link href="#Outgoing" as="span">
-                (Outgoing Payments)
-              </Nav.Link>
-            </Link>
+            <NavLink to="/open" exact activeClassName="active">
+              <Nav.Link as="span">Open</Nav.Link>
+            </NavLink>
+            <NavLink to="/paid" exact activeClassName="active">
+              <Nav.Link as="span">Paid</Nav.Link>
+            </NavLink>
+            <NavLink to="/deleted" exact activeClassName="active">
+              <Nav.Link as="span">Deleted</Nav.Link>
+            </NavLink>
+            <NavLink to="/outgoing" exact activeClassName="active">
+              <Nav.Link as="span">(Outgoing Payments)</Nav.Link>
+            </NavLink>
           </Nav>
         </Navbar.Collapse>
-        <Nav.Link href="/" style={{ color: "#ffffff80" }}>
-          Logout
-        </Nav.Link>
+        <NavLink to="/">
+          <Nav.Link as="span" style={{ color: "#ffffff80" }}>
+            Logout
+          </Nav.Link>
+        </NavLink>
       </Navbar>
     </Container>
   );

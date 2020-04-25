@@ -140,10 +140,9 @@ const Open = () => {
   const lastUpdatedInvoices = useTracker(() => {
     return InvoicesFetchLog.findOne(
       { createdAt: 1 },
-      { sort: { createdAt: -1, limit: 1 } }
+      { sort: { createdAt: -1 } }
     );
   });
-  console.log("lastUpdatedInvoices", lastUpdatedInvoices);
 
   const handleFetchInvoices = () => {
     Meteor.call("fetchInvoices");
