@@ -45,12 +45,19 @@ const Open = () => {
     );
   });
 
+  // rounding function from https://www.jacklmoore.com/notes/rounding-in-javascript/
+  const round = (value, decimals) => {
+    return Number(Math.round(value + "e" + decimals) + "e-" + decimals);
+  };
   // receivable totals
   const getReceivableTotal = (currency) => {
-    return invoices
-      .filter((invoice) => invoice.currency === currency)
-      .map((invoices) => parseFloat(invoices.amount))
-      .reduce((a, b) => a + b, 0);
+    return round(
+      invoices
+        .filter((invoice) => invoice.currency === currency)
+        .map((invoices) => parseFloat(invoices.amount))
+        .reduce((a, b) => a + b, 0),
+      2
+    );
   };
   const chfReceivableTotal = getReceivableTotal("CHF");
   const eurReceivableTotal = getReceivableTotal("EUR");
@@ -137,7 +144,12 @@ const Open = () => {
       <p>
         Total receivables: CHF {chfReceivableTotal}, EUR {eurReceivableTotal}
       </p>
-      <hr style={{ marginTop: "0.2rem", marginBottom: "0.7rem" }} />
+      <hr
+        style={{
+          marginTop: "0.2rem",
+          marginBottom: "0.7rem",
+        }}
+      />
       <button
         className="btn btn-outline-success btn-sm mb-2 mr-2"
         onClick={handlePair}
