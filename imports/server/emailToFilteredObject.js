@@ -28,7 +28,7 @@ const getTransaction = (emailText) => {
 
 // get transaction date
 const getTransactionDate = (emailText) => {
-  const transactionDateRegex = /am\D(\d{2}.\d{2}.\d{4})/;
+  const transactionDateRegex = /am\D(\d{2}.\d{2}.\d{4})/i;
   const transactionDate = transactionDateRegex.exec(emailText);
   if (transactionDate !== null) {
     return transactionDate[1];
@@ -42,8 +42,14 @@ const getTransactionDate = (emailText) => {
 
 // get new balane total
 const getNewBalance = (emailText) => {
-  const newBalanceRegex = /[a-z]\D[A-Z]{3}\D(\d+\D\d{2})/;
-  const newBalance = newBalanceRegex.exec(emailText);
+  let newBalance = "";
+  if (emailText[0] === "A") {
+    const newBalanceRegex = /\D[A-Z]{3}\D(\d+\D\d{2})\./;
+    newBalance = newBalanceRegex.exec(emailText);
+  } else {
+    const newBalanceRegex = /[a-z]\D[A-Z]{3}\D(\d+\D\d{2})/;
+    newBalance = newBalanceRegex.exec(emailText);
+  }
   if (newBalance !== null) {
     return newBalance[1];
   } else {
