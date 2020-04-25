@@ -25,4 +25,15 @@ Meteor.methods({
       { $set: { isDeleted: false } }
     );
   },
+  paymentIsPaired(paymentId) {
+    check(paymentId, String);
+    PaymentsCollection.update({ _id: paymentId }, { $set: { isPaired: true } });
+  },
+  paymentIsNotPaired(paymentId) {
+    check(paymentId, String);
+    PaymentsCollection.update(
+      { _id: paymentId },
+      { $set: { isPaired: false } }
+    );
+  },
 });
