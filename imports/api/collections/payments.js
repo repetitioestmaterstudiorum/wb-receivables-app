@@ -12,6 +12,9 @@ if (Meteor.isServer) {
 
 Meteor.methods({
   markPaymentDeleted(paymentId) {
+    if (!this.userId) {
+      throw new Meteor.Error("not-authorized");
+    }
     check(paymentId, String);
     PaymentsCollection.update(
       { _id: paymentId },
@@ -19,6 +22,9 @@ Meteor.methods({
     );
   },
   markPaymentNotDeleted(paymentId) {
+    if (!this.userId) {
+      throw new Meteor.Error("not-authorized");
+    }
     check(paymentId, String);
     PaymentsCollection.update(
       { _id: paymentId },
@@ -26,10 +32,16 @@ Meteor.methods({
     );
   },
   paymentIsPaired(paymentId) {
+    if (!this.userId) {
+      throw new Meteor.Error("not-authorized");
+    }
     check(paymentId, String);
     PaymentsCollection.update({ _id: paymentId }, { $set: { isPaired: true } });
   },
   paymentIsNotPaired(paymentId) {
+    if (!this.userId) {
+      throw new Meteor.Error("not-authorized");
+    }
     check(paymentId, String);
     PaymentsCollection.update(
       { _id: paymentId },

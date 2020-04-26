@@ -14,10 +14,16 @@ if (Meteor.isServer) {
 
 Meteor.methods({
   addPair(object) {
+    if (!this.userId) {
+      throw new Meteor.Error("not-authorized");
+    }
     check(object, Object);
     InvPaymentPairsCollection.insert(object);
   },
   removePair(pairId) {
+    if (!this.userId) {
+      throw new Meteor.Error("not-authorized");
+    }
     check(pairId, String);
     InvPaymentPairsCollection.remove({ _id: pairId });
   },

@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Router, Route, Switch } from "react-router-dom";
 import { createBrowserHistory } from "history";
-/* the console said: use `require("history").createBrowserHistory` instead of `require("history/createBrowserHistory")` */
+import { UserContext } from "./context/UserContext";
 
 // route components
-import Header from "./components/Header.jsx"; // with jsx because there's also a css file in the folder
+import Header from "./components/Header";
+import HeaderLoggedOut from "./components/HeaderLoggedOut";
 import Landing from "./pages/Landing";
 import Open from "./pages/Open";
 import Paid from "./pages/Paid/Paid";
@@ -15,17 +16,28 @@ import FourOFour from "./pages/FourOFour";
 const browserHistory = createBrowserHistory();
 
 const Routes = () => {
+  const { isLoggedIn } = useContext(UserContext);
+
   return (
     <Router history={browserHistory}>
-      <Header />
-      <Switch>
-        <Route exact path="/" component={Landing} />
-        <Route exact path="/open" component={Open} />
-        <Route exact path="/paid" component={Paid} />
-        <Route exact path="/deleted" component={Deleted} />
-        <Route exact path="/outgoing" component={Outgoing} />
-        <Route component={FourOFour} />
-      </Switch>
+      {isLoggedIn ? (
+        <React.Fragment>
+          <Header />
+          <Switch>
+            <Route exact path="/" component={Landing} />
+            <Route exact path="/open" component={Open} />
+            <Route exact path="/paid" component={Paid} />
+            <Route exact path="/deleted" component={Deleted} />
+            <Route exact path="/outgoing" component={Outgoing} />
+            <Route component={FourOFour} />
+          </Switch>
+        </React.Fragment>
+      ) : (
+        <React.Fragment>
+          <HeaderLoggedOut />
+          <Route component={Landing} />
+        </React.Fragment>
+      )}
     </Router>
   );
 };
