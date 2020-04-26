@@ -30,5 +30,8 @@ https://sendgrid.com/docs/for-developers/parsing-email/setting-up-the-inbound-pa
 multer and webapp:
 https://forums.meteor.com/t/solved-receiving-multi-part-form-data-with-meteor-multer/49814/2
 
-- react, react router v4 and authentication
-https://forums.meteor.com/t/react-react-router-v4-meteor-1-5-authentication-example-app/39602
+- react, react router v4 and Meteor accounts-password 
+use accounts-password with React directly:
+https://medium.com/@clarityhub_owl/writing-your-own-authentication-react-components-for-meteor-ab793a3ad009
+disable registration of users:
+https://stackoverflow.com/questions/16004637/disable-meteor-registration

@@ -20,6 +20,9 @@ if (Meteor.isServer) {
 
 Meteor.methods({
   markInvoiceDeleted(invoiceId) {
+    if (!this.userId) {
+      throw new Meteor.Error("not-authorized");
+    }
     check(invoiceId, String);
     InvoicesCollection.update(
       { _id: invoiceId },
@@ -27,6 +30,9 @@ Meteor.methods({
     );
   },
   markInvoiceNotDeleted(invoiceId) {
+    if (!this.userId) {
+      throw new Meteor.Error("not-authorized");
+    }
     check(invoiceId, String);
     InvoicesCollection.update(
       { _id: invoiceId },
@@ -34,10 +40,16 @@ Meteor.methods({
     );
   },
   invoiceIsPaired(invoiceId) {
+    if (!this.userId) {
+      throw new Meteor.Error("not-authorized");
+    }
     check(invoiceId, String);
     InvoicesCollection.update({ _id: invoiceId }, { $set: { isPaired: true } });
   },
   invoiceIsNotPaired(invoiceId) {
+    if (!this.userId) {
+      throw new Meteor.Error("not-authorized");
+    }
     check(invoiceId, String);
     InvoicesCollection.update(
       { _id: invoiceId },
@@ -45,11 +57,21 @@ Meteor.methods({
     );
   },
   fetchInvoices() {
+    if (Meteor.isClient) {
+      if (!this.userId) {
+        throw new Meteor.Error("not-authorized");
+      }
+    }
     if (Meteor.isServer) {
       fetchAndUpsertInvoices();
     }
   },
   updateInvoicesFetchLog() {
+    if (Meteor.isClient) {
+      if (!this.userId) {
+        throw new Meteor.Error("not-authorized");
+      }
+    }
     if (Meteor.isServer) {
       InvoicesFetchLog.insert({
         createdAt: now(),
