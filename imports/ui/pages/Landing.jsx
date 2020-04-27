@@ -1,13 +1,10 @@
-import { Meteor } from "meteor/meteor";
 import React, { useState, useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import { Redirect } from "react-router-dom";
 import Loader from "../components/Loader";
 
 const Landing = () => {
-  const { isLoggedIn } = useContext(UserContext);
-  const [isLoading, setIsLoading] = useState(false);
+  const { logIn, isLoading, setIsLoading } = useContext(UserContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -24,31 +21,11 @@ const Landing = () => {
       alert("Enter email and password");
     } else {
       setIsLoading(true);
-      try {
-        Meteor.loginWithPassword(email, password, function (err) {
-          if (err) {
-            alert(err.message);
-          } else {
-            if (Meteor.userId()) {
-              window.location.href = Meteor.absoluteUrl("open");
-            }
-          }
-        });
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setTimeout(function () {
-          setEmail("");
-          setPassword("");
-          setIsLoading(false);
-        }, 300);
-      }
+      logIn(email, password);
+      setEmail("");
+      setPassword("");
     }
   };
-
-  if (isLoggedIn) {
-    return <Redirect to="/open" />;
-  }
 
   return (
     <Container>

@@ -1,16 +1,14 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import { Container, Navbar, Nav } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 
 const Header = () => {
-  const { logOut } = useContext(UserContext);
+  const { logOut, setIsLoading } = useContext(UserContext);
 
   const handleLogout = () => {
+    setIsLoading(true);
     logOut();
-    setTimeout(function () {
-      window.location.href = Meteor.absoluteUrl();
-    }, 100);
   };
 
   return (
@@ -49,7 +47,7 @@ const Header = () => {
                 (Outgoing Payments)
               </Nav.Link>
             </NavLink>
-            <NavLink to="/" onClick={handleLogout}>
+            <NavLink to="#" onClick={handleLogout}>
               <Nav.Link as="span" href="#Logout" style={{ color: "#ffffff80" }}>
                 Logout
               </Nav.Link>

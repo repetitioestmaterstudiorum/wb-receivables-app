@@ -5,21 +5,42 @@ export const UserContext = createContext({});
 
 export const UserProvider = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const checkLoginStatus = () => {
-    Meteor.userId() ? setIsLoggedIn(true) : setIsLoggedIn(false);
+    return Meteor.userId() ? true : false;
+  };
+
+  const logIn = (email, password) => {
+    Meteor.loginWithPassword(email, password, function (err) {
+      if (err) {
+        alert(err.message);
+        setIsLoading(false);
+      } else {
+        setTimeout(function () {
+          setIsLoggedIn(true);
+          setIsLoading(false);
+        }, 300);
+      }
+    });
   };
 
   const logOut = () => {
     Meteor.logout();
+    setTimeout(function () {
+      setIsLoggedIn(false);
+      setIsLoading(false);
+    }, 500);
   };
 
   useEffect(() => {
-    checkLoginStatus();
-  });
+    setIsLoggedIn(checkLoginStatus());
+  }, [isLoggedIn]);
 
   return (
-    <UserContext.Provider value={{ isLoggedIn, logOut }}>
+    <UserContext.Provider
+      value={{ isLoggedIn, logIn, logOut, isLoading, setIsLoading }}
+    >
       {props.children}
     </UserContext.Provider>
   );

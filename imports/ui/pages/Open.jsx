@@ -141,10 +141,7 @@ const Open = () => {
 
   Meteor.subscribe("invoicesfetchlog");
   const lastUpdatedInvoices = useTracker(() => {
-    return InvoicesFetchLog.findOne(
-      { createdAt: 1 },
-      { sort: { createdAt: -1 } }
-    );
+    return InvoicesFetchLog.findOne({}, { sort: { createdAt: -1 } });
   });
 
   const handleFetchInvoices = () => {
@@ -187,7 +184,8 @@ const Open = () => {
         </button>
         <span style={{ lineHeight: "1.8" }}>
           &#183; last fetch:{" "}
-          {moment(lastUpdatedInvoices).format("DD.MM.YYYY HH:mm")}
+          {lastUpdatedInvoices &&
+            moment(lastUpdatedInvoices.createdAt).format("DD.MM.YYYY HH:mm")}
         </span>
       </div>
       <Row>
