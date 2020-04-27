@@ -2,7 +2,7 @@
 
 webButler Receivables App that fetches the Run my Accounts API and receives and parses emails to get invoice and payment data and show a split view to find missing payments
 
-![preview](https://github.com/sunyamare/wb-receivables-app/blob/master/screenshot.png)
+![preview](https://github.com/sunyamare/wb-receivables-app/blob/master/public/screenshot.png)
 
 ## cool stuff used in here
 
