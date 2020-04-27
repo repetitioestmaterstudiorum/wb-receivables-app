@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Router, Route, Switch } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import { UserContext } from "./context/UserContext";
+import { Redirect } from "react-router-dom";
 
 // route components
 import Header from "./components/Header";
@@ -12,30 +13,36 @@ import Paid from "./pages/Paid/Paid";
 import Deleted from "./pages/Deleted";
 import Outgoing from "./pages/Outgoing";
 import FourOFour from "./pages/FourOFour";
+import Loader from "./components/Loader";
 
 const browserHistory = createBrowserHistory();
 
 const Routes = () => {
-  const { isLoggedIn } = useContext(UserContext);
+  const { isLoggedIn, isLoading } = useContext(UserContext);
 
   return (
     <Router history={browserHistory}>
       {isLoggedIn ? (
         <React.Fragment>
+          <Redirect to="/open" />
           <Header />
-          <Switch>
-            <Route exact path="/" component={Landing} />
-            <Route exact path="/open" component={Open} />
-            <Route exact path="/paid" component={Paid} />
-            <Route exact path="/deleted" component={Deleted} />
-            <Route exact path="/outgoing" component={Outgoing} />
-            <Route component={FourOFour} />
-          </Switch>
+          {isLoading ? (
+            <Loader />
+          ) : (
+            <Switch>
+              <Route exact path="/open" component={Open} />
+              <Route exact path="/paid" component={Paid} />
+              <Route exact path="/deleted" component={Deleted} />
+              <Route exact path="/outgoing" component={Outgoing} />
+              <Route component={FourOFour} />
+            </Switch>
+          )}
         </React.Fragment>
       ) : (
         <React.Fragment>
+          <Redirect to="/" />
           <HeaderLoggedOut />
-          <Route component={Landing} />
+          <Route component={isLoading ? Loader : Landing} />
         </React.Fragment>
       )}
     </Router>
