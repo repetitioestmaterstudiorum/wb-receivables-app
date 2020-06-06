@@ -28,11 +28,9 @@ const Pair = (props) => {
           <strong>
             {currency} {invoiceAmount}
           </strong>
+          , {customer} - paid on: <em>{paymentDate}</em>
         </p>
       </Form.Check.Label>
-      <p>
-        {customer} - paid on: {paymentDate}
-      </p>
     </li>
   );
 };

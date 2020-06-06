@@ -20,7 +20,7 @@ const Invoice = (props) => {
   const now = Date.now();
   const tMinus = now - Date.parse(duedate);
   const tMinusDays = (tMinus / 1000 / 60 / 60 / 24) * -1;
-  const tMinusDaysRounded = Math.round(tMinusDays);
+  const tMinusDaysRounded = ~~tMinusDays; // the bit operator ~~ removes decimals
 
   const alertIfOverdue = {
     color: tMinusDaysRounded > 0 ? "black" : "#de5300",
