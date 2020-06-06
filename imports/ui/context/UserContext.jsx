@@ -17,30 +17,25 @@ export const UserProvider = (props) => {
         alert(err.message);
         setIsLoading(false);
       } else {
-        setTimeout(function () {
-          setIsLoggedIn(true);
-          setIsLoading(false);
-        }, 300);
+        setIsLoggedIn(true);
+        setIsLoading(false);
       }
     });
   };
 
   const logOut = () => {
     Meteor.logout();
-    setTimeout(function () {
-      setIsLoggedIn(false);
-      setIsLoading(false);
-    }, 500);
+    setIsLoggedIn(false);
+    setIsLoading(false);
   };
 
   useEffect(() => {
     setIsLoggedIn(checkLoginStatus());
-  }, [isLoggedIn]);
+  }, []);
 
   return (
     <UserContext.Provider
-      value={{ isLoggedIn, logIn, logOut, isLoading, setIsLoading }}
-    >
+      value={{ isLoggedIn, logIn, logOut, isLoading, setIsLoading }}>
       {props.children}
     </UserContext.Provider>
   );
