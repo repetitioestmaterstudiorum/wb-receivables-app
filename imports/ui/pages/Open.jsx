@@ -55,16 +55,24 @@ const Open = () => {
   };
   // receivable totals
   const getReceivableTotal = (currency) => {
-    return round(
-      invoices
-        .filter((invoice) => invoice.currency === currency)
-        .map((invoices) => parseFloat(invoices.amount))
-        .reduce((a, b) => a + b, 0),
-      2
-    );
+    return invoices
+      .filter((invoice) => invoice.currency === currency)
+      .map((invoices) => parseFloat(invoices.amount))
+      .reduce((a, b) => a + b, 0);
   };
-  const chfReceivableTotal = getReceivableTotal("CHF");
-  const eurReceivableTotal = getReceivableTotal("EUR");
+  const getPaymentsTotal = (currency) => {
+    return payments
+      .filter((payment) => payment.transactionCurrency === currency)
+      .map((payments) => payments.transaction)
+      .reduce((a, b) => a + b, 0);
+  };
+
+  const chfReceivableTotal = round(
+    getReceivableTotal("CHF") - getPaymentsTotal("CHF"),
+    2
+  );
+  const eurReceivableTotal =
+    getReceivableTotal("EUR") - getPaymentsTotal("EUR");
 
   // checked states
   const [checkedInvoices, setCheckedInvoices] = useState([]);
@@ -166,20 +174,17 @@ const Open = () => {
       <div className="align-middle mb-2">
         <button
           className="btn btn-outline-success btn-sm mr-2"
-          onClick={handlePair}
-        >
+          onClick={handlePair}>
           Pair
         </button>
         <button
           className="btn btn-outline-info btn-sm mr-2"
-          onClick={handleDelete}
-        >
+          onClick={handleDelete}>
           Delete
         </button>
         <button
           className="btn btn-outline-secondary btn-sm mr-2"
-          onClick={handleFetchInvoices}
-        >
+          onClick={handleFetchInvoices}>
           Fetch Invoices
         </button>
         <span style={{ lineHeight: "1.8" }}>

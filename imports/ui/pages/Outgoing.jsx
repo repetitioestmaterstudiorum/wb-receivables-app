@@ -11,7 +11,7 @@ const Outgoing = () => {
       {
         subject: "Belastung",
       },
-      { sort: { transactionDate: -1 } }
+      { sort: { createdAt: -1 } }
     ).fetch();
   });
 
@@ -27,7 +27,7 @@ const Outgoing = () => {
               {payments &&
                 payments.map((payment) => (
                   <p key={payment._id}>
-                    - <strong>{payment.transactionDate}: </strong>
+                    <strong>{payment.transactionDate}: </strong>
                     {payment.transactionCurrency} {payment.transaction} (new
                     balance: {payment.newBalance})
                   </p>
