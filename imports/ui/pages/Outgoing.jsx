@@ -5,7 +5,6 @@ import { Container, Row, Col } from "react-bootstrap";
 
 const Outgoing = () => {
   // initial data from mongodb
-  Meteor.subscribe("payments");
   const payments = useTracker(() => {
     return PaymentsCollection.find(
       {
