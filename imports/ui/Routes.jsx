@@ -1,8 +1,7 @@
 import React, { useContext } from "react";
-import { Router, Route, Switch } from "react-router-dom";
+import { Router, Route, Switch, Redirect } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import { UserContext } from "./context/UserContext";
-import { Redirect } from "react-router-dom";
 
 // route components
 import Header from "./components/Header";

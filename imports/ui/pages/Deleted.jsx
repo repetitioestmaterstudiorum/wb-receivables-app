@@ -8,8 +8,6 @@ import { Container, Row, Col } from "react-bootstrap";
 
 const Deleted = () => {
   // initial data from mongodb
-  Meteor.subscribe("invoices");
-  Meteor.subscribe("payments");
   const invoices = useTracker(() => {
     return InvoicesCollection.find(
       { isConsolidated: { $ne: true }, isDeleted: true },

@@ -6,7 +6,6 @@ import { Container } from "react-bootstrap";
 
 const Paid = () => {
   // get pair data
-  Meteor.subscribe("invpaymentpairs");
   const invPaymentPairs = useTracker(() => {
     return InvPaymentPairsCollection.find(
       {},
