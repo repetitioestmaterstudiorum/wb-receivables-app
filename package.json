@@ -8,22 +8,22 @@
     "visualize": "meteor --production --extra-packages bundle-visualizer"
   },
   "dependencies": {
-    "@babel/runtime": "^7.8.4",
+    "@babel/runtime": "^7.10.5",
     "axios": "^0.19.2",
     "bcrypt": "^4.0.1",
     "body-parser": "^1.19.0",
-    "bootstrap": "^4.4.1",
-    "caniuse-lite": "^1.0.30001041",
+    "bootstrap": "^4.5.0",
+    "caniuse-lite": "^1.0.30001100",
     "dotenv": "^8.2.0",
     "history": "^4.10.1",
     "meteor-node-stubs": "^1.0.0",
-    "moment-timezone": "^0.5.28",
+    "moment-timezone": "^0.5.31",
     "multer": "^1.4.2",
     "react": "^16.13.1",
-    "react-bootstrap": "^1.0.0",
+    "react-bootstrap": "^1.2.2",
     "react-dom": "^16.13.1",
-    "react-router": "^5.1.2",
-    "react-router-dom": "^5.1.2"
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0"
   },
   "meteor": {
     "mainModule": {
