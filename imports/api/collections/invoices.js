@@ -57,8 +57,8 @@ Meteor.methods({
     );
   },
   fetchInvoices() {
-    if (Meteor.isClient) {
-      if (!this.userId) {
+    if (!this.userId) {
+      if (Meteor.isClient) {
         throw new Meteor.Error("not-authorized");
       }
     }
@@ -67,8 +67,8 @@ Meteor.methods({
     }
   },
   updateInvoicesFetchLog() {
-    if (Meteor.isClient) {
-      if (!this.userId) {
+    if (!this.userId) {
+      if (Meteor.isClient) {
         throw new Meteor.Error("not-authorized");
       }
     }
