@@ -9,7 +9,7 @@ const Paid = () => {
   const invPaymentPairs = useTracker(() => {
     return InvPaymentPairsCollection.find(
       {},
-      { sort: { createdAt: -1 } }
+      { sort: { createdAt: -1 }, limit: 10 }
     ).fetch();
   });
 
@@ -44,10 +44,10 @@ const Paid = () => {
     <Container>
       <button
         className="btn btn-outline-info btn-sm mb-2"
-        onClick={handleUnpair}
-      >
+        onClick={handleUnpair}>
         Unpair
       </button>
+      <h2>Showing the last 10 payments:</h2>
       {invPaymentPairs.length === 0 ? (
         <p>No payment pairs..</p>
       ) : (
