@@ -11,7 +11,7 @@ const Deleted = () => {
   const invoices = useTracker(() => {
     return InvoicesCollection.find(
       { isConsolidated: { $ne: true }, isDeleted: true },
-      { sort: { invdate: -1 } }
+      { sort: { invdate: -1 }, limit: 10 }
     ).fetch();
   });
   const payments = useTracker(() => {
@@ -21,9 +21,10 @@ const Deleted = () => {
         isDeleted: true,
         subject: "Zahlungseingang",
       },
-      { sort: { transactionDate: -1 } }
+      { sort: { createdAt: -1 }, limit: 10 }
     ).fetch();
   });
+  console.log("payments", payments);
 
   // checked states
   const [checkedInvoices, setCheckedInvoices] = useState([]);
@@ -70,13 +71,12 @@ const Deleted = () => {
     <Container>
       <button
         className="btn btn-outline-success btn-sm mb-2 mr-2"
-        onClick={handleRestore}
-      >
+        onClick={handleRestore}>
         Restore
       </button>
       <Row>
         <Col sm={7}>
-          <h2>Invoices</h2>
+          <h2>Invoices (max. last 10)</h2>
           {invoices.length === 0 ? (
             <p>No deleted invoices..</p>
           ) : (
@@ -93,7 +93,7 @@ const Deleted = () => {
           )}
         </Col>
         <Col sm={5}>
-          <h2>Payments</h2>
+          <h2>Payments (max. last 10)</h2>
           {payments.length === 0 ? (
             <p>No deleted payments..</p>
           ) : (

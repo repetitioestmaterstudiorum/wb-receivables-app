@@ -17,13 +17,13 @@ const Invoice = (props) => {
     _id,
   } = props.invoice;
 
-  const now = Date.now();
-  const tMinus = now - Date.parse(duedate);
-  const tMinusDays = (tMinus / 1000 / 60 / 60 / 24) * -1;
-  const tMinusDaysRounded = ~~tMinusDays; // the bit operator ~~ removes decimals
+  const nowDate = Date.now();
+  const nowMinusDueDate = nowDate - Date.parse(duedate);
+  const nowMinusDueDateInDays = (nowMinusDueDate / 1000 / 60 / 60 / 24) * -1;
+  const dueInDays = Math.ceil(nowMinusDueDateInDays);
 
-  const alertIfOverdue = {
-    color: tMinusDaysRounded > 0 ? "black" : "#de5300",
+  const redIfOverdue = {
+    color: dueInDays > 0 ? "black" : "#de5300",
   };
 
   const handleInvoiceCheckbox = () => {
@@ -34,13 +34,13 @@ const Invoice = (props) => {
     <li className="mb-2">
       <Form.Check.Label>
         <Form.Check.Input type="checkbox" onChange={handleInvoiceCheckbox} />
-        <p style={alertIfOverdue}>
+        <p style={redIfOverdue}>
           <strong>{invnumber}</strong>, {moment(invdate).format("DD.MM.YYYY")}
         </p>
       </Form.Check.Label>
       <p>
         Due: {moment(duedate).format("DD.MM.YYYY")} (
-        <strong style={alertIfOverdue}>in {tMinusDaysRounded} days</strong>)
+        <strong style={redIfOverdue}>in {dueInDays} days</strong>)
       </p>
       <p>
         <strong>{customername}</strong>, {description}

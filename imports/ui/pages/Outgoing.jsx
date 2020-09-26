@@ -10,7 +10,7 @@ const Outgoing = () => {
       {
         subject: "Belastung",
       },
-      { sort: { createdAt: -1 } }
+      { sort: { createdAt: -1 }, limit: 10 }
     ).fetch();
   });
 
@@ -19,6 +19,7 @@ const Outgoing = () => {
       <Row>
         <Col>
           <h1>Outgoing payments:</h1>
+          <h2>(Showing only the last 10)</h2>
           {payments.length === 0 ? (
             <p>No outgoing payments..</p>
           ) : (
