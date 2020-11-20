@@ -1,7 +1,7 @@
 import { Random } from "meteor/random";
 import axios from "axios";
 import moment from "moment-timezone";
-import { InvoicesCollection } from "./collections/invoices";
+import { InvoicesCollection } from "imports/api/collections/invoices";
 
 export async function fetchInvoices() {
   const url = `https://service.runmyaccounts.com/api/latest/clients/webbutler/invoices/?status=OPEN&api_key=${process.env.RMA_API_KEY}`;
