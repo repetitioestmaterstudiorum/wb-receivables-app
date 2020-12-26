@@ -1,3 +1,9 @@
+# Project files
 node_modules/
 private/
+
+# Mac folder config
 .DS_store
+
+# Win Folder config file
+[Dd]esktop.ini
