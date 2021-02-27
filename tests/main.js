@@ -1,20 +1,20 @@
-import assert from "assert";
+import assert from 'assert'
 
-describe("wb-receivables-app", function () {
-  it("package.json has correct name", async function () {
-    const { name } = await import("../package.json");
-    assert.strictEqual(name, "wb-receivables-app");
-  });
+describe('wb-receivables-app', function () {
+	it('package.json has correct name', async function () {
+		const { name } = await import('../package.json')
+		assert.strictEqual(name, 'wb-receivables-app')
+	})
 
-  if (Meteor.isClient) {
-    it("client is not server", function () {
-      assert.strictEqual(Meteor.isServer, false);
-    });
-  }
+	if (Meteor.isClient) {
+		it('client is not server', function () {
+			assert.strictEqual(Meteor.isServer, false)
+		})
+	}
 
-  if (Meteor.isServer) {
-    it("server is not client", function () {
-      assert.strictEqual(Meteor.isClient, false);
-    });
-  }
-});
+	if (Meteor.isServer) {
+		it('server is not client', function () {
+			assert.strictEqual(Meteor.isClient, false)
+		})
+	}
+})
