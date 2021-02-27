@@ -2,6 +2,9 @@
 node_modules/
 private/
 
+# secretes
+.env
+
 # Mac folder config
 .DS_store
 
