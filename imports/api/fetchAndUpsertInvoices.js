@@ -1,7 +1,9 @@
 import { Random } from 'meteor/random'
 import axios from 'axios'
 import moment from 'moment-timezone'
-import { InvoicesCollection } from './collections/invoices'
+
+import { now } from '../api/now.js'
+import { InvoicesFetchLog, InvoicesCollection } from '../api/collections/invoices.js'
 
 async function fetchInvoices() {
 	const url = `https://service.runmyaccounts.com/api/latest/clients/webbutler/invoices/?status=OPEN&api_key=${process.env.RMA_API_KEY}`
@@ -64,7 +66,9 @@ export async function fetchAndUpsertInvoices() {
 	const result = await fetchInvoices()
 	try {
 		upsertInvoices(result.data.invoice)
-		Meteor.call('updateInvoicesFetchLog')
+		InvoicesFetchLog.insert({
+			createdAt: now(),
+		})
 	} catch (err) {
 		console.error(err)
 	}

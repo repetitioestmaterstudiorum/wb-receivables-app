@@ -2,9 +2,6 @@ import { Meteor } from 'meteor/meteor'
 import { Mongo } from 'meteor/mongo'
 import { check } from 'meteor/check'
 
-import { fetchAndUpsertInvoices } from '../fetchAndUpsertInvoices'
-import { now } from '../now'
-
 export const InvoicesCollection = new Mongo.Collection('invoices')
 export const InvoicesFetchLog = new Mongo.Collection('invoicesfetchlog')
 
@@ -20,53 +17,39 @@ if (Meteor.isServer) {
 
 Meteor.methods({
 	markInvoiceDeleted(invoiceId) {
-		if (!this.userId) {
-			throw new Meteor.Error('not-authorized')
+		if (Meteor.isServer) {
+			// if (!this.userId) {
+			// 	throw new Meteor.Error('not-authorized')
+			// }
+			check(invoiceId, String)
+			InvoicesCollection.update({ _id: invoiceId }, { $set: { isDeleted: true } })
 		}
-		check(invoiceId, String)
-		InvoicesCollection.update({ _id: invoiceId }, { $set: { isDeleted: true } })
 	},
 	markInvoiceNotDeleted(invoiceId) {
-		if (!this.userId) {
-			throw new Meteor.Error('not-authorized')
+		if (Meteor.isServer) {
+			// if (!this.userId) {
+			// 	throw new Meteor.Error('not-authorized')
+			// }
+			check(invoiceId, String)
+			InvoicesCollection.update({ _id: invoiceId }, { $set: { isDeleted: false } })
 		}
-		check(invoiceId, String)
-		InvoicesCollection.update({ _id: invoiceId }, { $set: { isDeleted: false } })
 	},
 	invoiceIsPaired(invoiceId) {
-		if (!this.userId) {
-			throw new Meteor.Error('not-authorized')
+		if (Meteor.isServer) {
+			// if (!this.userId) {
+			// 	throw new Meteor.Error('not-authorized')
+			// }
+			check(invoiceId, String)
+			InvoicesCollection.update({ _id: invoiceId }, { $set: { isPaired: true } })
 		}
-		check(invoiceId, String)
-		InvoicesCollection.update({ _id: invoiceId }, { $set: { isPaired: true } })
 	},
 	invoiceIsNotPaired(invoiceId) {
-		if (!this.userId) {
-			throw new Meteor.Error('not-authorized')
-		}
-		check(invoiceId, String)
-		InvoicesCollection.update({ _id: invoiceId }, { $set: { isPaired: false } })
-	},
-	fetchInvoices() {
-		if (!this.userId) {
-			if (Meteor.isClient) {
-				throw new Meteor.Error('not-authorized')
-			}
-		}
 		if (Meteor.isServer) {
-			fetchAndUpsertInvoices()
-		}
-	},
-	updateInvoicesFetchLog() {
-		if (!this.userId) {
-			if (Meteor.isClient) {
-				throw new Meteor.Error('not-authorized')
-			}
-		}
-		if (Meteor.isServer) {
-			InvoicesFetchLog.insert({
-				createdAt: now(),
-			})
+			// if (!this.userId) {
+			// 	throw new Meteor.Error('not-authorized')
+			// }
+			check(invoiceId, String)
+			InvoicesCollection.update({ _id: invoiceId }, { $set: { isPaired: false } })
 		}
 	},
 })

@@ -3,7 +3,7 @@
 	"private": true,
 	"scripts": {
 		"start": "meteor run --exclude-archs web.browser.legacy,web.cordova",
-		"dev": "export $(grep -v '^#' .env | xargs) && MONGO_URI=process.env.MONGO_URI meteor run --exclude-archs web.browser.legacy,web.cordova",
+		"dev": "export $(grep -v '^#' .env | xargs) && MONGO_URI meteor run --exclude-archs web.browser.legacy,web.cordova",
 		"test": "TEST_WATCH=1 meteor run test --full-app --driver-package meteortesting:mocha",
 		"visualize": "meteor run --exclude-archs web.browser.legacy,web.cordova --production --extra-packages bundle-visualizer",
 		"profile": "METEOR_PROFILE=100 meteor run --exclude-archs web.browser.legacy,web.cordova",
